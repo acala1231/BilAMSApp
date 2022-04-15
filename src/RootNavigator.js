@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { UserContext } from 'contexts'
-import { SideMenuDrawer, AuthStack } from 'navigations';
+import * as Navigations from 'navigations';
 
 const RootNavigator = () => {
   const { user } = useContext(UserContext);
@@ -9,9 +9,9 @@ const RootNavigator = () => {
   return (
     <NavigationContainer>
       {user?.uid && user?.email ?
-        <SideMenuDrawer />
+        <Navigations.SideMenuDrawer />
         :
-        <AuthStack />
+        <Navigations.AuthStack />
       }
     </NavigationContainer>
   );
