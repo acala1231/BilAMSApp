@@ -44,13 +44,13 @@ const Login = () => {
     if (!data) return null;
     return
     (
-        <FlatList>
+        <>
             {data.map(post => (
-                <li key={post.id}>
+                <FlatList key={post.id}>
                     {post.title}
-                </li>
+                </FlatList>
             ))}
-        </FlatList>
+        </>
     );
 }
 
