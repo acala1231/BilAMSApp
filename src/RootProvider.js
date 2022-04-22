@@ -3,9 +3,10 @@ import { Provider } from 'react-redux';
 import { Provider as PaperProvider } from 'react-native-paper';
 import RootNavigator from 'RootNavigator';
 
-import Loader from 'components/Loader';
+import { Loader, ErrorMessage } from 'components';
 import configureStore from 'store/configureStore'
 import rootSaga from 'sagas'
+
 
 const RootProvider = () => {
   const store = configureStore();
@@ -19,6 +20,7 @@ const RootProvider = () => {
       </PaperProvider>
 
       <Loader />
+      <ErrorMessage />
     </Provider>
   );
 };

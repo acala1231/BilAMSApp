@@ -1,6 +1,8 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+
 import { AttendenceReg, ProjectMng, SideMenu } from 'screens'
+
 
 const Drawer = createDrawerNavigator();
 

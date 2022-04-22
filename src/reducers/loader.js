@@ -1,4 +1,5 @@
-import { LOADER_START, LOADER_END } from '../constants'
+import { LOADER_START, LOADER_END } from 'constants'
+
 
 const initialState = {
     isLoading: false

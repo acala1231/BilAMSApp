@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 import { Drawer, Title, Caption } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,9 +8,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { drawerStyles } from 'styles/styles';
 import * as constants from 'constants';
 
+
 const SideMenu = (props) => {
   const action = useDispatch();
-  const emp = useSelector(state => state.emp.emp);
+  const empInfo = useSelector(state => state.emp.empInfo);
 
   return (
     <DrawerContentScrollView {...props}>
@@ -31,8 +32,8 @@ const SideMenu = (props) => {
           />
         </View>
         <View style={drawerStyles.userInfoSection}>
-          <Title style={drawerStyles.title}>{emp.empNm}</Title>
-          <Caption style={drawerStyles.caption}>{emp.empNo}</Caption>
+          <Title style={drawerStyles.title}>{empInfo.empNm}</Title>
+          <Caption style={drawerStyles.caption}>{empInfo.empNo}</Caption>
         </View>
         <Drawer.Section style={drawerStyles.drawerSection}>
           <DrawerItem

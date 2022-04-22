@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+
 import * as Navigations from 'navigations';
 
-import { useSelector } from 'react-redux';
 
 const RootNavigator = () => {
   const isLogin = useSelector(state => state.emp.isLogin);

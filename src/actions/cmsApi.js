@@ -1,5 +1,6 @@
 import * as constants from 'constants'
 
+
 export function callPostCmsApi(url, params) {
     return {
         type: constants.CALL_POST_API,
@@ -16,9 +17,9 @@ export function callGetCmsApi(url, params) {
     }
 }
 
-export function login(param) {
+export function login(params) {
     return {
         type: constants.LOGIN_REQUEST,
-        param,
+        params,
     }
 }

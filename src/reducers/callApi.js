@@ -1,5 +1,7 @@
 import produce from "immer";
+
 import { CALL_REQUEST, CALL_SUCCESS, CALL_FAILURE } from 'constants'
+
 
 const initialState = {
     isLoading: false,
@@ -16,12 +18,12 @@ function callApi(state = initialState, action) {
         case CALL_SUCCESS:
             return produce(state, draft => {
                 draft.data = action.data;
-                draft.isLoading = false;
+                draft.isLoading = initialState.isLoading;
             });
         case CALL_FAILURE:
             return produce(state, draft => {
                 draft.data = initialState.data;
-                draft.isLoading = false;
+                draft.isLoading = initialState.isLoading;
             });
         default:
             return state;
