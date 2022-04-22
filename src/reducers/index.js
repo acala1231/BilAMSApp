@@ -1,8 +1,13 @@
-import { combineReducers } from 'redux';
-import user from './user';
+import { combineReducers } from 'redux'
+import loader from './loader'
+import callApi from './callApi'
+import emp from './emp'
+
 
 const rootReducer = combineReducers({
-  user
-});
+  loader,
+  callApi,
+  emp,
+})
 
-export default rootReducer;
+export default rootReducer

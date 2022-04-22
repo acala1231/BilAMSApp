@@ -1,14 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { UserContext } from 'contexts'
 import * as Navigations from 'navigations';
 
+import { useSelector } from 'react-redux';
+
 const RootNavigator = () => {
-  const { user } = useContext(UserContext);
+  const isLogin = useSelector(state => state.emp.isLogin);
 
   return (
     <NavigationContainer>
-      {user?.uid && user?.email ?
+      {isLogin ?
         <Navigations.SideMenuDrawer />
         :
         <Navigations.AuthStack />

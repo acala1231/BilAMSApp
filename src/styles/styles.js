@@ -11,3 +11,26 @@ export const loaderStlye = StyleSheet.create({
         backgroundColor: 'black',
     },
 });
+
+export const drawerStyles = StyleSheet.create({
+    logo: {
+      width: 50,
+      height: 50,
+    },
+    drawerContent: {
+      flex: 1,
+    },
+    userInfoSection: {
+      paddingLeft: 20,
+      marginTop: 15,
+    },
+    drawerSection: {
+      marginTop: 15,
+    },
+    preference: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+    },
+  });

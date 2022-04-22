@@ -1,29 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 import { Drawer, Title, Caption } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { UserContext, LoaderContext } from 'contexts';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { drawerStyles } from 'styles/styles';
+import * as constants from 'constants';
 
 const SideMenu = (props) => {
-  const { user, dispatch } = useContext(UserContext);
-  const { loader } = useContext(LoaderContext);
-
-  const _testLogout = async () => {
-    try {
-      loader.start();
-      dispatch({});
-    } catch (e) {
-      Alert.alert('Logout Error', e.message);
-    } finally {
-      loader.stop();
-    }
-  };
+  const action = useDispatch();
+  const emp = useSelector(state => state.emp.emp);
 
   return (
     <DrawerContentScrollView {...props}>
-      <View style={styles.drawerContent} >
-        <View style={styles.userInfoSection}>
+      <View style={drawerStyles.drawerContent} >
+        <View style={drawerStyles.userInfoSection}>
           {/* <Image
             source={{
               uri:
@@ -32,17 +24,17 @@ const SideMenu = (props) => {
             size={50}
           /> */}
           <Image
-            style={styles.logo}
+            style={drawerStyles.logo}
             source={{
               uri: 'https://reactnative.dev/img/tiny_logo.png',
             }}
           />
         </View>
-        <View style={styles.userInfoSection}>
-          <Title style={styles.title}>{user.uid}</Title>
-          <Caption style={styles.caption}>{user.email}</Caption>
+        <View style={drawerStyles.userInfoSection}>
+          <Title style={drawerStyles.title}>{emp.empNm}</Title>
+          <Caption style={drawerStyles.caption}>{emp.empNo}</Caption>
         </View>
-        <Drawer.Section style={styles.drawerSection}>
+        <Drawer.Section style={drawerStyles.drawerSection}>
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
@@ -74,35 +66,12 @@ const SideMenu = (props) => {
                 size={size} />
             )}
             label="로그아웃"
-            onPress={() => { _testLogout() }}
+            onPress={() => { action(constants.LOGOUT) }}
           />
         </Drawer.Section>
       </View>
     </DrawerContentScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  logo: {
-    width: 50,
-    height: 50,
-  },
-  drawerContent: {
-    flex: 1,
-  },
-  userInfoSection: {
-    paddingLeft: 20,
-    marginTop: 15,
-  },
-  drawerSection: {
-    marginTop: 15,
-  },
-  preference: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-  },
-});
 
 export default SideMenu;

@@ -1,19 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Text, View, Alert, Button } from 'react-native';
-import { LoaderContext } from 'contexts';
+import { useDispatch } from 'react-redux';
+
+import { LOADER_START, LOADER_END } from 'constants';
 
 const ProjectMng = () => {
-
-    const { loader } = useContext(LoaderContext);
+    const action = useDispatch();
 
     const spinnerTest = async () => {
-        console.log('start')
         try {
-            loader.start();
-            console.log('started')
+            action(LOADER_START)
             setTimeout(() => {
-                console.log('stop')
-                loader.stop();
+                action(LOADER_END)
             }, 5000);
         } catch (e) {
             console.log(e.message)
