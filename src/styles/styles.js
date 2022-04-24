@@ -35,3 +35,11 @@ export const drawerStyles = StyleSheet.create({
     paddingHorizontal: 16,
   },
 });
+
+export const loginStlye = StyleSheet.create({
+  input: {
+    width: 200,
+    height: 50,
+    margin: 5,
+  },
+});

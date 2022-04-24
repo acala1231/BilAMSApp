@@ -11,6 +11,7 @@ const initialState = {
 function emp(state = initialState, action) {
     switch (action.type) {
         case LOGIN:
+            console.log('reducer login', action);
             return produce(state, draft => {
                 draft.isLogin = true;
                 draft.empInfo = action.empInfo;

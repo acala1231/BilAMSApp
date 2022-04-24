@@ -1,29 +1,28 @@
 import produce from "immer";
 
-import { CALL_REQUEST, CALL_SUCCESS, CALL_FAILURE } from 'constants'
-
+import { CALL_API_REQUSET, CALL_API_SUCCESS, CALL_API_FAILURE } from '../constants'
 
 const initialState = {
-    isLoading: false,
+    isProcessing: false,
     data: [],
 }
 
 function callApi(state = initialState, action) {
     switch (action.type) {
-        case CALL_REQUEST:
+        case CALL_API_REQUSET:
             return produce(state, draft => {
+                draft.isProcessing = true;
                 draft.data = initialState.data;
-                draft.isLoading = true;
             });
-        case CALL_SUCCESS:
+        case CALL_API_SUCCESS:
             return produce(state, draft => {
+                draft.isProcessing = initialState.isProcessing;
                 draft.data = action.data;
-                draft.isLoading = initialState.isLoading;
             });
-        case CALL_FAILURE:
+        case CALL_API_FAILURE:
             return produce(state, draft => {
+                draft.isProcessing = initialState.isProcessing;
                 draft.data = initialState.data;
-                draft.isLoading = initialState.isLoading;
             });
         default:
             return state;
