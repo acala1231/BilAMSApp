@@ -1,6 +1,14 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 
+export const commonStlye = StyleSheet.create({
+  defalutView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
 export const loaderStlye = StyleSheet.create({
   indicator: {
     position: 'absolute',
@@ -37,9 +45,21 @@ export const drawerStyles = StyleSheet.create({
 });
 
 export const loginStlye = StyleSheet.create({
+  logo: {
+    width: 150,
+    height: 150,
+    margin: 20,
+  },
   input: {
     width: 200,
     height: 50,
     margin: 5,
   },
+  button: {
+    width: 200,
+    height: 50,
+    margin: 5,
+    backgroundColor: '#6e6e6e',
+    justifyContent: 'center'
+  }
 });

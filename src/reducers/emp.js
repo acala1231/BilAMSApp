@@ -1,17 +1,16 @@
 import produce from "immer";
 
-import { LOGIN, LOGOUT } from 'constants'
+import { LOGIN, LOGOUT, MODIFY_EMP_PW } from 'constants'
 
 
 const initialState = {
     isLogin: false,
-    empInfo: { empNo: null, empNm: null },
+    empInfo: { empNo: null, empNm: null, isInitPw: 'true' },
 }
 
 function emp(state = initialState, action) {
     switch (action.type) {
         case LOGIN:
-            console.log('reducer login', action);
             return produce(state, draft => {
                 draft.isLogin = true;
                 draft.empInfo = action.empInfo;
@@ -19,7 +18,12 @@ function emp(state = initialState, action) {
         case LOGOUT:
             return produce(state, draft => {
                 draft.isLogin = false;
-                draft.empInfo = initialState.emp;
+                draft.empInfo = initialState.empInfo;
+            });
+        case MODIFY_EMP_PW:
+            return produce(state, draft => {
+                draft.isLogin = true;
+                draft.empInfo = action.empInfo;
             });
         default:
             return state;

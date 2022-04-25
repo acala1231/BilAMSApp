@@ -1,78 +1,100 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Button } from 'react-native';
+import { View, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import _ from 'lodash'
 
-import { cmsApi, common } from 'actions';
-import { loginStlye } from 'styles/styles';
+import { cmsApi } from 'actions';
+import { loginStlye, commonStlye } from 'styles/styles';
+import { common } from 'js';
+import * as constants from 'constants'
 
+
+// 로그인 유효성검사
+const validate = (action, empNo, empPw) => {
+    if (_.isEmpty(empNo)) {
+        common.showErrorMsg(action, '사번을 입력하세요.');
+        // showErrorMsg('사번을 입력하세요.');
+        return;
+    }
+
+    let str = _.toNumber(empNo);
+    if (_.isNaN(str) || !_.isNumber(str) || str.toString().length != 8) {
+        common.showErrorMsg(action, '잘못된 사번입니다.');
+        return;
+    }
+
+    if (_.isEmpty(empPw)) {
+        common.showErrorMsg(action, '비밀번호를 입력하세요.');
+        return;
+    }
+
+    // 로그인
+    action(cmsApi.login({ empNo, empPw }));
+}
+
+const checkToken = async (action) => {
+    try {
+        const token = await common.getAsyncStore(constants.CMS_AUTH_TOKEN);
+        console.log('login page token', token);
+        if (!_.isEmpty(token)) {
+            action(cmsApi.login({}));
+        }
+    } catch (e) {
+        console.log('Failed to fetch the data from storage');
+    }
+}
 
 const Login = () => {
     const action = useDispatch();
     const [empNo, setEmpNo] = useState('');
     const [empPw, setEmpPw] = useState('');
+    const [isSecretPw, setIsSecretPw] = useState(true);
 
-
+    // const { data, error, isLoading } = useAsync({ promiseFn: common.getAsyncStore('userInfo') })
+    // console.log(data, error, isLoading);
     useEffect(() => {
         setEmpNo('22010101');
-        setEmpPw('1111');
+        setEmpPw('qweasd1122!');
+
+        checkToken(action);
     }, []);
 
-
-    function showErrorMsg(msg) {
-        action(common.errorMsgShow(msg));
-    }
-
-    function login() {
-        if (_.isEmpty(empNo)) {
-            showErrorMsg('사번을 입력하세요.');
-            return;
-        }
-
-        let str = _.toNumber(empNo);
-        if (_.isNaN(str) || !_.isNumber(str) || str.toString().length != 8) {
-            showErrorMsg('잘못된 사번입니다.');
-            return;
-        }
-
-        if (_.isEmpty(empPw)) {
-            showErrorMsg('비밀번호를 입력하세요.');
-            return;
-        }
-
-        action(cmsApi.login({ empNo, empPw }));
-    }
-
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            {/* <View> */}
-            <Text>로그인화면</Text>
+        <View style={commonStlye.defalutView}>
+            <Image
+                style={loginStlye.logo}
+                source={{
+                    uri: 'https://reactnative.dev/img/tiny_logo.png',
+                }}
+            />
             <TextInput
                 mode='outlined'
                 label='사번'
                 placeholder='Type something'
-                // right={<TextInput.Affix text='/8' />}
                 style={loginStlye.input}
                 value={empNo}
+                keyboardType='number-pad'
                 maxLength={8}
-                onChangeText={text => setEmpNo(text)}
+                onChangeText={(text) => setEmpNo(text)}
             />
             <TextInput
                 label='비밀번호'
-                secureTextEntry
-                right={<TextInput.Icon name='eye' />}
+                secureTextEntry={isSecretPw}
+                right={<TextInput.Icon name='eye' onPress={() => setIsSecretPw(!isSecretPw)} />}
                 style={loginStlye.input}
                 value={empPw}
                 maxLength={20}
-                onChangeText={text => setEmpPw(text)}
+                onChangeText={(text) => setEmpPw(text)}
             />
-
-
-            <Button title='로그인' onPress={() => login()} />
-
-            {/* </View> */}
-        </View>
+            <Button
+                mode="contained"
+                onPress={() => validate(action, empNo, empPw)}
+                style={loginStlye.button}
+            >
+                로그인
+            </Button>
+        </View >
     );
 }
 

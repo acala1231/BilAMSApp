@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 
-import { common } from 'actions';
-import * as constants from '../constants';
+import { hideErrorMsg } from 'js/common';
 
 
 const ErrorMessage = () => {
@@ -13,14 +12,14 @@ const ErrorMessage = () => {
   useEffect(() => {
     if (error) {
       console.log(message ? message : '에러가 발생했습니다.');
-      action(common.errorMsgHide());
+      hideErrorMsg(action);
       Alert.alert(
         '',
         message ? message : '에러가 발생했습니다.',
         [
           {
             text: '확인',
-            onPress: () => { action(common.errorMsgHide()) },
+            onPress: () => { hideErrorMsg(action) },
           }
         ]
       );

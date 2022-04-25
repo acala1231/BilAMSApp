@@ -1,13 +1,28 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, Alert } from 'react-native';
 import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 import { Drawer, Title, Caption } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { drawerStyles } from 'styles/styles';
-import * as constants from 'constants';
+import { cmsApi } from 'actions';
 
+
+function logout(action) {
+  Alert.alert(
+    '',
+    '로그아웃 하시겠습니까?',
+    [
+      {
+        text: "취소",
+        style: "cancel"
+      },
+      { text: "확인", onPress: () => { action(cmsApi.logout()) } }
+
+    ]
+  );
+}
 
 const SideMenu = (props) => {
   const action = useDispatch();
@@ -66,8 +81,18 @@ const SideMenu = (props) => {
                 color={color}
                 size={size} />
             )}
+            label="비밀번호변경"
+            onPress={() => { props.navigation.navigate('비밀번호변경') }}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="logout"
+                color={color}
+                size={size} />
+            )}
             label="로그아웃"
-            onPress={() => { action(constants.LOGOUT) }}
+            onPress={() => { logout(action) }}
           />
         </Drawer.Section>
       </View>
