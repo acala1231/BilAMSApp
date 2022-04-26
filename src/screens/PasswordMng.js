@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Text, View, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
@@ -40,6 +40,14 @@ const PasswordMng = () => {
     const [newEmpPw, setNewEmpPw] = useState('');
     const [isSecretCurPw, setIsSecretCurPw] = useState(true);
     const [isSecretNewPw, setIsSecretNewPw] = useState(true);
+
+
+    useEffect(() => {
+        setCurEmpPw('qweasd1122!');
+        setNewEmpPw('qweasd1122!');
+    }, []);
+
+
 
     return (
         <View style={commonStlye.defalutView}>

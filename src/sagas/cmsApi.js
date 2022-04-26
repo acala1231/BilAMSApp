@@ -5,98 +5,84 @@ import _ from "lodash";
 import * as constants from 'constants'
 import { common } from "js";
 
-function* valid() {
-    try {
-        console.log('valid');
-        const response = yield call(common.callCmsApi, { method: 'post', url: 'validToken' });
-        console.log('valid response', response);
-        if (response.data.satus !== 'success') {
-            throw 'token error';
-        }
-        return true;
-    } catch (e) {
-        common.setAsyncStore(constants.CMS_AUTH_TOKEN, '');
-        yield put({ type: constants.LOGOUT });
-        yield put({ type: constants.ERROR_MSG_SHOW, message: '로그인중 에러가 발생했습니다.' });
-    }
-    return false;
-}
 
+// 로그인
 function* login(action) {
-    yield put({ type: constants.LOADER_START });
-    let response;
+    yield put({ type: constants.LOADER_START }); // 로딩시작
     try {
-        // 토큰 로그인시 유효성 검사
-        if (_.isEmpty(action.params.empNo)) {
-            console.log('login before valid');
-
-            const isValid = yield select(valid());
-
-            console.log('login after valid', isValid);
-            if (!isValid) throw 'token error';
-        } else {
-            common.setAsyncStore(constants.CMS_AUTH_TOKEN, '');
-        }
-        // 토큰 로그인시 유효성 검사
-
-        response = yield call(common.callCmsApi, action);
+        // /login 호출
+        const response = yield call(common.callCmsApi, action);
         console.log('response.data', response.data);
 
-        if (response.data.status !== 'success') {
-            throw response.data.message;
-        }
-        yield put({ type: constants.LOGIN, empInfo: response.data.data });
+        if (response.data.status == 'inValidToken') { // 토큰만료
+            // 만료토큰정보 삭제
+            common.setAsyncStore(constants.CMS_AUTH_TOKEN, '');
 
-        common.setAsyncStore('empInfo', response.data.data);
-        common.setAsyncStore(constants.CMS_AUTH_TOKEN, response.data.data.token);
+        } else if (response.data.status !== 'success') { // 로그인실패
+            throw response.data.message;
+
+        } else { // 로그인성공
+            // 로그인처리
+            yield put({ type: constants.LOGIN, empInfo: response.data.data });
+
+            // 토큰정보 저장
+            common.setAsyncStore(constants.CMS_AUTH_TOKEN, response.data.data.token);
+        }
 
     } catch (e) {
         yield put({ type: constants.ERROR_MSG_SHOW, message: '로그인중 에러가 발생했습니다.' });
-
     } finally {
-        yield put({ type: constants.LOADER_END });
+        yield put({ type: constants.LOADER_END }); // 로딩종료
     }
 }
 
+// 로그아웃
 function* logout() {
-    yield put({ type: constants.LOADER_START });
+    yield put({ type: constants.LOADER_START }); // 로딩시작
     try {
+        // 토큰정보 삭제
         common.setAsyncStore(constants.CMS_AUTH_TOKEN, '');
+        // 로그아웃처리
         yield put({ type: constants.LOGOUT });
 
     } catch (e) {
-        console.log(e);
         yield put({ type: constants.ERROR_MSG_SHOW, message: '로그아웃중 에러가 발생했습니다.' });
-
     } finally {
-        yield put({ type: constants.LOADER_END });
+        yield put({ type: constants.LOADER_END }); // 로딩종료
     }
 }
 
+// 비밀번호변경
 function* modifyEmpPw(action) {
-    yield put({ type: constants.LOADER_START });
-    let response;
+    yield put({ type: constants.LOADER_START }); // 로딩시작
     try {
-        // 토큰 유효성 검사
-        const isValid = yield call(valid());
-        if (!isValid) throw 'token error';
-        // 토큰 유효성 검사
-
-        response = yield call(common.callCmsApi, action);
+        // /modifyPw 호출
+        const response = yield call(common.callCmsApi, action);
         console.log('response.data', response.data);
-        if (response.data.status !== 'success') {
+
+        if (response.data.status == 'inValidToken') { // 토큰만료
+            // 만료토큰정보 삭제
+            common.setAsyncStore(constants.CMS_AUTH_TOKEN, '');
+            // 로그아웃처리
+            yield put({ type: constants.LOGOUT });
+            yield put({ type: constants.ERROR_MSG_SHOW, message: '로그인 토큰이 만료되었습니다.' });
+
+        } else if (response.data.status !== 'success') { // 비밀번호변경실패
             throw response.data.message;
+
+        } else { // 비밀번호변경성공
+            // 직원정보 변경(초기 비밀번호 여부)
+            yield put({ type: constants.LOGIN, empInfo: response.data.data });
+            yield put({ type: constants.ERROR_MSG_SHOW, message: '비밀번호 변경이 완료되었습니다.' });
         }
-        yield put({ type: constants.LOGIN, empInfo: response.data.data });
 
     } catch (e) {
-        console.log(e);
         yield put({ type: constants.ERROR_MSG_SHOW, message: '비밀번호 변경중 에러가 발생했습니다.' });
-
     } finally {
-        yield put({ type: constants.LOADER_END });
+        yield put({ type: constants.LOADER_END }); // 로딩종료
     }
 }
+
 
 function* cmsApiSaga() {
     // yield takeEvery(constants.CALL_API_REQUSET, getCmsApiData);

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import * as constants from '../constants'
+import * as constants from 'constants'
 
 
 // export function errorMsgHide() {

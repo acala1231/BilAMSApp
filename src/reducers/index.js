@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
 
 import loader from './loader'
-import callApi from './callApi'
+// import callApi from './callApi'
 import emp from './emp'
 import errorMsg from './errorMsg'
 
 
 const rootReducer = combineReducers({
   loader,
-  callApi,
+  // callApi,
   emp,
   errorMsg,
 })

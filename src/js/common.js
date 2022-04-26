@@ -19,32 +19,16 @@ export const callCmsApi = async (param) => {
         timeout: 5000,
     };
 
-    console.log('url', url);
-    console.log('params', params);
-    console.log('config', config);
+    // console.log('axios url', url);
+    // console.log('axios params', params);
+    // console.log('axios config', config);
 
     if (method == 'post') {
         return axios.post(url, params, config).catch(function (error) {
             if (error.response) {
-                // 토큰만료처리
+                // 토큰만료
                 if (error.response.status == 403) {
-                    console.log('error.response', error.response);
-                    resolve({ 'status' : 'test' });
-
-                    // {
-                    //     "data": {
-                    //       "empNm": "테스트직원1",
-                    //       "empNo": "22010101",
-                    //       "isInitPw": "false",
-                    //       "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMjAxMDEwMSIsIlJPTEVTIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE2NTA4NzM1NzUsImV4cCI6MTY1MDg3MzU3Nn0.n1xq4fSyqzs1hvgUSrKy59Qwv1Hr70Fqk94rNR6Nuy0",
-                    //     },
-                    //     "message": "성공",
-                    //     "status": "success",
-                    //   }
-
-                    // setAsyncStore(constants.CMS_AUTH_TOKEN, '');
-                    // yield put({ type: constants.LOGOUT });
-
+                    return Promise.resolve({ 'data': { 'status': 'inValidToken' } });
                 }
             };
         });

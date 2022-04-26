@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import { CALL_API_REQUSET, CALL_API_SUCCESS, CALL_API_FAILURE } from '../constants'
+import { CALL_API_REQUSET, CALL_API_SUCCESS, CALL_API_FAILURE } from 'constants'
 
 const initialState = {
     isProcessing: false,

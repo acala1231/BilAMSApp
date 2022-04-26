@@ -14,7 +14,6 @@ import * as constants from 'constants'
 const validate = (action, empNo, empPw) => {
     if (_.isEmpty(empNo)) {
         common.showErrorMsg(action, '사번을 입력하세요.');
-        // showErrorMsg('사번을 입력하세요.');
         return;
     }
 
@@ -33,15 +32,16 @@ const validate = (action, empNo, empPw) => {
     action(cmsApi.login({ empNo, empPw }));
 }
 
+// 토큰보유시 자동로그인
 const checkToken = async (action) => {
     try {
         const token = await common.getAsyncStore(constants.CMS_AUTH_TOKEN);
-        console.log('login page token', token);
         if (!_.isEmpty(token)) {
+            // 토큰으로 로그인
             action(cmsApi.login({}));
         }
     } catch (e) {
-        console.log('Failed to fetch the data from storage');
+        console.log('checkToken error', e);
     }
 }
 
@@ -51,8 +51,6 @@ const Login = () => {
     const [empPw, setEmpPw] = useState('');
     const [isSecretPw, setIsSecretPw] = useState(true);
 
-    // const { data, error, isLoading } = useAsync({ promiseFn: common.getAsyncStore('userInfo') })
-    // console.log(data, error, isLoading);
     useEffect(() => {
         setEmpNo('22010101');
         setEmpPw('qweasd1122!');

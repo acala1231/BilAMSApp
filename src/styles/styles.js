@@ -6,6 +6,7 @@ export const commonStlye = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: '#636e72',
   },
 });
 
@@ -62,4 +63,40 @@ export const loginStlye = StyleSheet.create({
     backgroundColor: '#6e6e6e',
     justifyContent: 'center'
   }
+});
+
+export const prjMngStlye = StyleSheet.create({
+  container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  adrContainer: {
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      backgroundColor: 'white',
+      padding: 10,
+      borderRadius: 10,
+  },
+  modal: {
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  aplyContainer: {
+      width: 320,
+      backgroundColor: 'white',
+      padding: 10,
+      borderRadius: 10,
+  },
+  adrPostcode: {
+      width: 320,
+      height: 500,
+  },
+  singleView: {
+      margin: 10,
+  },
+  multiView: {
+      margin: 10,
+      flexDirection: 'row',
+  },
 });
