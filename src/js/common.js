@@ -20,7 +20,7 @@ export const callCmsApi = async (param) => {
     };
 
     // console.log('axios url', url);
-    // console.log('axios params', params);
+    console.log('axios params', params);
     // console.log('axios config', config);
 
     if (method == 'post') {

@@ -29,7 +29,7 @@ const validate = (action, empNo, empPw) => {
     }
 
     // 로그인
-    action(cmsApi.login({ empNo, empPw }));
+    action(cmsApi.loginReuest({ empNo, empPw }));
 }
 
 // 토큰보유시 자동로그인
@@ -38,7 +38,7 @@ const checkToken = async (action) => {
         const token = await common.getAsyncStore(constants.CMS_AUTH_TOKEN);
         if (!_.isEmpty(token)) {
             // 토큰으로 로그인
-            action(cmsApi.login({}));
+            action(cmsApi.loginReuest({}));
         }
     } catch (e) {
         console.log('checkToken error', e);

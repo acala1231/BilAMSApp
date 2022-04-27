@@ -70,6 +70,7 @@ export const prjMngStlye = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      // marginHorizontal: 20,
   },
   adrContainer: {
       // alignItems: 'center',
@@ -99,4 +100,9 @@ export const prjMngStlye = StyleSheet.create({
       margin: 10,
       flexDirection: 'row',
   },
+  flatList: {
+    width: Dimensions.get('window').width,
+    height: '70%',
+    flexGrow: 0,
+  }
 });

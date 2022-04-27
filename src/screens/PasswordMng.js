@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, View, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import _ from 'lodash'
@@ -40,6 +40,9 @@ const PasswordMng = () => {
     const [newEmpPw, setNewEmpPw] = useState('');
     const [isSecretCurPw, setIsSecretCurPw] = useState(true);
     const [isSecretNewPw, setIsSecretNewPw] = useState(true);
+
+    const data = useSelector(state => state.callApi.data);
+    console.log('PasswordMng data', data.length);
 
 
     useEffect(() => {

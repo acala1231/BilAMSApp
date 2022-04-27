@@ -9,9 +9,9 @@ export const HOST_CMS_API = `http://192.168.22.54:8080/api/CMS/`;//pol
 export const LOADER_START = 'LOADER_START'
 export const LOADER_END = 'LOADER_END'
 
-// export const CALL_API_REQUSET = 'CALL_API_REQUSET';
-// export const CALL_API_SUCCESS = 'CALL_API_SUCCESS';
-// export const CALL_API_FAILURE = 'CALL_API_FAILURE';
+export const CALL_API_REQUSET = 'CALL_API_REQUSET';
+export const CALL_API_SUCCESS = 'CALL_API_SUCCESS';
+export const CALL_API_FAILURE = 'CALL_API_FAILURE';
 
 // export const CALL_CMS_API = 'CALL_POST_CMS_API';
 

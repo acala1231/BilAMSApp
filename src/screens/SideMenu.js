@@ -18,7 +18,7 @@ function logout(action) {
         text: "취소",
         style: "cancel"
       },
-      { text: "확인", onPress: () => { action(cmsApi.logout()) } }
+      { text: "확인", onPress: () => { action(cmsApi.logoutRequest()) } }
 
     ]
   );

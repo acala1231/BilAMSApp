@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Title, Button, TextInput, DarkTheme, Modal, Portal, IconButton } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
+import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { Title, Button, TextInput, DarkTheme, Modal, Portal, IconButton, Dialog } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
 import Postcode from '@actbase/react-daum-postcode';
+import _ from 'lodash';
+import { useDrawerStatus } from '@react-navigation/drawer';
 
 import { LOADER_START, LOADER_END } from 'constants';
 import { common } from 'js';
 import WebView from 'react-native-webview';
-import { prjMngStlye } from 'styles/styles'
+import { prjMngStlye } from 'styles/styles';
+import { cmsApi } from '../actions';
 
 
 // 프로젝트 등록신청 유효성검사
@@ -31,10 +34,35 @@ const validate = (action, prjNm, zipcode, adr, dtlAdr, query) => {
     }
 
     // 등록신청
-    
+
 }
 
-const ProjectMng = () => {
+// 근무지리스트 조회
+const getWrkPlcList = (action, pageNo, setPageNo, pageCnt) => {
+    if (pageCnt == 0 || pageNo > pageCnt) return;
+    action(cmsApi.callCmsApi('/getWrkPlcList', { 'pageNo': pageNo }));
+    setPageNo(pageNo + 1);
+}
+
+const listItem = ({ item }) => (
+    <View style={prjMngStlye.multiView}>
+        <Text>{item.wrkPlcNo}</Text>
+        <Text>{item.prjNm}</Text>
+        <Text>{item.adr}</Text>
+    </View>
+);
+
+
+
+const ProjectMng = (props) => {
+
+    const isDrawerOpen = useDrawerStatus() === 'open';
+    console.log('isDrawerOpen', isDrawerOpen);
+
+    props.navigation.isFocused()
+    console.log(!props.navigation.isFocused());
+
+
     const action = useDispatch();
 
     // 팝업
@@ -48,30 +76,98 @@ const ProjectMng = () => {
     const [dtlAdr, setDtlAdr] = useState('');
     const [query, setQuery] = useState('');
 
+    // 근무지리스트
+    const [pageNo, setPageNo] = useState(1); // 리스트페이지번호
+    const [maxPageNo, setMaxPageNo] = useState(1); // 리스트페이지번호
+    const [list, setList] = useState([]); // 리스트데이터
+    const data = useSelector(state => state.callApi.data); // 조회데이터
+
+    const [refreshing, setRefreshing] = useState(false);
+
+    const getRefreshData = async () => {
+        setRefreshing(true);
+        console.log('init');
+        // await RefreshDataFetch();
+        setList([]);
+        setRefreshing(false);
+    };
+
+    const onRefresh = () => {
+        if (!refreshing) {
+            getRefreshData();
+        }
+    };
 
 
+    // 데이터 조회해올때
     useEffect(() => {
+        // 조회해온 데이터가 있을때
+        if (data.list && data.list.length > 0) {
+            let temp = _.union(list, data.list);
+            setList(temp);
+        }
 
-        // readData();
+        if (data.pageCnt) {
+            setMaxPageNo(data.pageCnt);
+        }
 
-    }, []);
+        // data 초기화
+        action(cmsApi.callCmsApiFail());
+    }, [data]);
+
+    const hideAplyModal = () => {
+        // 신청정보 초기화
+        setPrjNm('');
+        setZipcode('');
+        setAdr('');
+        setDtlAdr('');
+        setQuery('');
+        setAplyModal(false);
+        setAdrModal(false)
+    }
+
+    const initPage = () => {
+        hideAplyModal();
+        setList([]);
+    }
+
+    
+    // if (!props.navigation.isFocused()) initPage();
 
     return (
         <View style={prjMngStlye.container}>
             <Title>프로젝트관리</Title>
+
             <Button
                 mode="contained"
                 onPress={() => setAplyModal(true)}
             >등록</Button>
+            <Button
+                mode="contained"
+                onPress={() => getWrkPlcList(action, pageNo, setPageNo, maxPageNo)}
+            >테스트</Button>
 
-            {/* 프로젝트등록신청 */}
+            <View>
+                <FlatList
+                    data={list}
+                    renderItem={listItem}
+                    keyExtractor={item => item.wrkPlcNo}
+                    style={prjMngStlye.flatList}
+                    onRefresh={onRefresh}
+                    refreshing={refreshing}
+                />
+            </View>
+
+
+            {/* 근무지등록신청 */}
             <Portal>
-                <Modal
+                <Dialog
                     visible={isAplyModal}
                     style={prjMngStlye.modal}
-                    onDismiss={() => setAplyModal(false)}
+                    onDismiss={() => hideAplyModal(false)}
                 >
-                    <View style={prjMngStlye.aplyContainer}>
+                    <Dialog.Title>근무지 등록신청</Dialog.Title>
+                    <Dialog.Content style={prjMngStlye.aplyContainer}>
                         <View style={prjMngStlye.singleView}>
                             <TextInput
                                 label="프로젝트명"
@@ -116,18 +212,20 @@ const ProjectMng = () => {
                                 onPress={() => validate(action, prjNm, zipcode, adr, dtlAdr, query)}
                             >등록</Button>
                         </View>
-                    </View>
-                </Modal>
+                        {/* </View> */}
+                    </Dialog.Content>
+                </Dialog>
             </Portal>
             <Portal>
                 {/* 주소검색 */}
-                <Modal
+                <Dialog
                     visible={isAdrModal}
                     onDismiss={() => setAdrModal(false)}
                     // style={prjMngStlye.adrContainer}
                     style={prjMngStlye.modal}
                 >
-                    <View style={prjMngStlye.adrContainer}>
+                    <Dialog.Title>주소검색</Dialog.Title>
+                    <Dialog.Content style={prjMngStlye.adrContainer}>
                         <Postcode
                             style={prjMngStlye.adrPostcode}
                             jsOptions={{ animation: true, hideMapBtn: true }}
@@ -140,11 +238,28 @@ const ProjectMng = () => {
                                 setAdrModal(false);
                             }}
                         />
-                    </View>
+                    </Dialog.Content>
 
-                </Modal>
+
+
+                    {/* <View style={prjMngStlye.adrContainer}>
+                        <Postcode
+                            style={prjMngStlye.adrPostcode}
+                            jsOptions={{ animation: true, hideMapBtn: true }}
+                            onSelected={data => {
+                                console.log(JSON.stringify(data));
+                                console.log(data.query);
+                                setAdr(data.address);
+                                setQuery(data.query);
+                                setZipcode(data.zonecode);
+                                setAdrModal(false);
+                            }}
+                        />
+                    </View> */}
+
+                </Dialog>
             </Portal>
-        </View >
+        </View>
     );
 }
 
