@@ -24,14 +24,17 @@ export const callCmsApi = async (param) => {
     // console.log('axios config', config);
 
     if (method == 'post') {
-        return axios.post(url, params, config).catch(function (error) {
-            if (error.response) {
-                // 토큰만료
-                if (error.response.status == 403) {
-                    return Promise.resolve({ 'data': { 'status': 'inValidToken' } });
-                }
-            };
-        });
+        return axios.post(url, params, config);
+        // return axios.post(url, params, config).catch(function (error) {
+            // if (error.response) {
+                // console.log('error', error);
+                // console.log('error.response', error.response);
+        //         // 토큰만료
+        //         if (error.response.status == 403) {
+        //             return Promise.resolve({ 'data': { 'status': 'inValidToken' } });
+        //         }
+        //     };
+        // });
     } else {
         return axios.get(url, params, config);
     }

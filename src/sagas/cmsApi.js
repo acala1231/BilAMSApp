@@ -105,7 +105,7 @@ function* callCmsApi(action) {
     yield wrapepr(function* () {
         // /login 호출
         const response = yield call(commJs.callCmsApi, action);
-        console.log('response.data', response.data);
+        // console.log('response.data', response.data);
 
         // 토큰만료확인
         if (yield !validationToken(response.data.status, true)) {

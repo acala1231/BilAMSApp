@@ -10,46 +10,48 @@ import { common } from 'js';
 import * as constants from 'constants'
 
 
-// 로그인 유효성검사
-const validate = (action, empNo, empPw) => {
-    if (_.isEmpty(empNo)) {
-        common.showErrorMsg(action, '사번을 입력하세요.');
-        return;
-    }
-
-    let str = _.toNumber(empNo);
-    if (_.isNaN(str) || !_.isNumber(str) || str.toString().length != 8) {
-        common.showErrorMsg(action, '잘못된 사번입니다.');
-        return;
-    }
-
-    if (_.isEmpty(empPw)) {
-        common.showErrorMsg(action, '비밀번호를 입력하세요.');
-        return;
-    }
-
-    // 로그인
-    action(cmsApi.loginReuest({ empNo, empPw }));
-}
-
-// 토큰보유시 자동로그인
-const checkToken = async (action) => {
-    try {
-        const token = await common.getAsyncStore(constants.CMS_AUTH_TOKEN);
-        if (!_.isEmpty(token)) {
-            // 토큰으로 로그인
-            action(cmsApi.loginReuest({}));
-        }
-    } catch (e) {
-        console.log('checkToken error', e);
-    }
-}
-
 const Login = () => {
     const action = useDispatch();
     const [empNo, setEmpNo] = useState('');
     const [empPw, setEmpPw] = useState('');
     const [isSecretPw, setIsSecretPw] = useState(true);
+
+
+    // 로그인 유효성검사
+    const validate = () => {
+        if (_.isEmpty(empNo)) {
+            common.showErrorMsg(action, '사번을 입력하세요.');
+            return;
+        }
+
+        let str = _.toNumber(empNo);
+        if (_.isNaN(str) || !_.isNumber(str) || str.toString().length != 8) {
+            common.showErrorMsg(action, '잘못된 사번입니다.');
+            return;
+        }
+
+        if (_.isEmpty(empPw)) {
+            common.showErrorMsg(action, '비밀번호를 입력하세요.');
+            return;
+        }
+
+        // 로그인
+        action(cmsApi.loginReuest({ empNo, empPw }));
+    }
+
+    // 토큰보유시 자동로그인
+    const checkToken = async () => {
+        try {
+            const token = await common.getAsyncStore(constants.CMS_AUTH_TOKEN);
+            if (!_.isEmpty(token)) {
+                // 토큰으로 로그인
+                action(cmsApi.loginReuest({}));
+            }
+        } catch (e) {
+            console.log('checkToken error', e);
+        }
+    }
+
 
     useEffect(() => {
         setEmpNo('22010101');
@@ -87,7 +89,7 @@ const Login = () => {
             />
             <Button
                 mode="contained"
-                onPress={() => validate(action, empNo, empPw)}
+                onPress={() => validate()}
                 style={loginStlye.button}
             >
                 로그인

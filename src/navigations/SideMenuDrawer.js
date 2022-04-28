@@ -8,10 +8,7 @@ import { AttendenceReg, ProjectMng, SideMenu, PasswordMng } from 'screens'
 const Drawer = createDrawerNavigator();
 
 const SideMenuDrawer = () => {
-
   const isInitPw = useSelector(state => state.emp.empInfo.isInitPw);
-
-
 
   return (
     <Drawer.Navigator

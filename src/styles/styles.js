@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 
 export const commonStlye = StyleSheet.create({
@@ -66,43 +67,60 @@ export const loginStlye = StyleSheet.create({
 });
 
 export const prjMngStlye = StyleSheet.create({
+  detailContainer: {
+    height: '20%',
+    // backgroundColor: 'yellow',
+  },
+  listContainer: {
+    height: '80%',
+    // backgroundColor: 'orange',
+  },
   container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      // marginHorizontal: 20,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // marginHorizontal: 20,
   },
   adrContainer: {
-      // alignItems: 'center',
-      // justifyContent: 'center',
-      backgroundColor: 'white',
-      padding: 10,
-      borderRadius: 10,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
   },
   modal: {
-      alignItems: 'center',
-      justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   aplyContainer: {
-      width: 320,
-      backgroundColor: 'white',
-      padding: 10,
-      borderRadius: 10,
+    width: 320,
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 10,
   },
   adrPostcode: {
-      width: 320,
-      height: 500,
+    width: 320,
+    height: 500,
   },
   singleView: {
-      margin: 10,
+    margin: 10,
   },
   multiView: {
-      margin: 10,
-      flexDirection: 'row',
+    margin: 10,
+    flexDirection: 'row',
   },
   flatList: {
     width: Dimensions.get('window').width,
-    height: '70%',
     flexGrow: 0,
   }
+});
+
+
+
+
+export const sampleStlye = StyleSheet.create({
+  backBlack: {
+    backgroundColor: 'black',
+  }
+
 });

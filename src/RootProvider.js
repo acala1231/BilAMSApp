@@ -15,7 +15,7 @@ const RootProvider = () => {
   return (
     <Provider store={store}>
       <PaperProvider
-        // theme={DarkTheme}
+        theme={DarkTheme}
       >
         <RootNavigator>
         </RootNavigator>
