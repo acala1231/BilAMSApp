@@ -1,16 +1,22 @@
 import { combineReducers } from 'redux'
 
-import loader from './loader'
-import callApi from './callApi'
-import emp from './emp'
-import errorMsg from './errorMsg'
+import { loader, alertMsg, confirmMsg } from './common'
+import {
+  emp,
+  workPlcList,
+  aplyWorkPlc,
+  regWorkPlc,
+} from './callApi'
 
 
 const rootReducer = combineReducers({
   loader,
-  callApi,
+  alertMsg,
+  confirmMsg,
   emp,
-  errorMsg,
+  workPlcList,
+  aplyWorkPlc,
+  regWorkPlc,
 })
 
 export default rootReducer

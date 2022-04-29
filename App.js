@@ -1,4 +1,4 @@
-import App from 'Root';
+import App from './src/Root';
 
 
 export default App;

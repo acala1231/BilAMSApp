@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { TextInput, Button } from 'react-native-paper';
 import _ from 'lodash'
 
-import { cmsApi } from 'actions';
-import { loginStlye, commonStlye } from 'styles/styles';
-import { common } from 'js';
-import * as constants from 'constants'
+import { cmsApi } from '../actions';
+import { loginStlye, commonStlye } from '../styles/styles';
+import { common } from '../js';
+import * as constants from '../constants'
 
 
 const Login = () => {
@@ -20,18 +20,18 @@ const Login = () => {
     // 로그인 유효성검사
     const validate = () => {
         if (_.isEmpty(empNo)) {
-            common.showErrorMsg(action, '사번을 입력하세요.');
+            common.showAlertMsg(action, '사번을 입력하세요.');
             return;
         }
 
         let str = _.toNumber(empNo);
         if (_.isNaN(str) || !_.isNumber(str) || str.toString().length != 8) {
-            common.showErrorMsg(action, '잘못된 사번입니다.');
+            common.showAlertMsg(action, '잘못된 사번입니다.');
             return;
         }
 
         if (_.isEmpty(empPw)) {
-            common.showErrorMsg(action, '비밀번호를 입력하세요.');
+            common.showAlertMsg(action, '비밀번호를 입력하세요.');
             return;
         }
 

@@ -4,21 +4,21 @@ import { Text, View, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import _ from 'lodash'
 
-import { loginStlye, commonStlye } from 'styles/styles';
-import { common } from 'js';
-import { cmsApi } from 'actions';
+import { loginStlye, commonStlye } from '../styles/styles';
+import { common } from '../js';
+import { cmsApi } from '../actions';
 
 
 // 비밀번호 변경 유효성검사
 const validate = (action, curEmpPw, newEmpPw) => {
 
     if (_.isEmpty(curEmpPw)) {
-        common.showErrorMsg(action, '비밀번호를 입력하세요.');
+        common.showAlertMsg(action, '비밀번호를 입력하세요.');
         return;
     }
 
     if (_.isEmpty(newEmpPw)) {
-        common.showErrorMsg(action, '새 비밀번호를 입력하세요.');
+        common.showAlertMsg(action, '새 비밀번호를 입력하세요.');
         return;
     }
 
@@ -26,7 +26,7 @@ const validate = (action, curEmpPw, newEmpPw) => {
     const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
 
     if (!reg.test(newEmpPw)) {
-        common.showErrorMsg(action, '비밀번호는 문자, 숫자, 특수문자를 포함하여 8~16자 이내로 입력하여야 합니다.');
+        common.showAlertMsg(action, '비밀번호는 문자, 숫자, 특수문자를 포함하여 8~16자 이내로 입력하여야 합니다.');
         return;
     }
 
@@ -41,8 +41,8 @@ const PasswordMng = () => {
     const [isSecretCurPw, setIsSecretCurPw] = useState(true);
     const [isSecretNewPw, setIsSecretNewPw] = useState(true);
 
-    const data = useSelector(state => state.callApi.data);
-    console.log('PasswordMng data', data.length);
+    // const data = useSelector(state => state.emp.data);
+    // console.log('PasswordMng data', data);
 
 
     useEffect(() => {

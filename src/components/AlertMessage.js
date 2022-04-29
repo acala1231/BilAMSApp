@@ -2,33 +2,33 @@ import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 
-import { hideErrorMsg } from 'js/common';
+import { hideAlertMsg } from '../js/common';
 
 
-const ErrorMessage = () => {
-  const { error, message } = useSelector(state => state.errorMsg);
+const AlertMessage = () => {
+  const { isShow, message } = useSelector(state => state.alertMsg);
   const action = useDispatch();
 
   useEffect(() => {
-    if (error) {
+    if (isShow) {
       console.log(message ? message : '에러가 발생했습니다.');
-      hideErrorMsg(action);
+      hideAlertMsg(action);
       Alert.alert(
         '',
         message ? message : '에러가 발생했습니다.',
         [
           {
             text: '확인',
-            onPress: () => { hideErrorMsg(action) },
+            onPress: () => { hideAlertMsg(action) },
           }
         ]
       );
     }
-  }, [error]);
+  }, [isShow]);
 
   return (
     <></>
   )
 };
 
-export default ErrorMessage;
+export default AlertMessage;

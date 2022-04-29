@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { AttendenceReg, ProjectMng, SideMenu, PasswordMng } from 'screens'
+import { AttendenceReg, ProjectMng, SideMenu, PasswordMng } from '../screens'
 
 
 const Drawer = createDrawerNavigator();

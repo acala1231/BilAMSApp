@@ -5,8 +5,8 @@ import { Drawer, Title, Caption } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { drawerStyles } from 'styles/styles';
-import { cmsApi } from 'actions';
+import { drawerStyles } from '../styles/styles';
+import { cmsApi } from '../actions';
 
 
 function logout(action) {

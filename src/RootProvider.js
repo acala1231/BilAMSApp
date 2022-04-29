@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
-import RootNavigator from 'RootNavigator';
+import { DarkTheme, DefaultTheme,  Provider as PaperProvider } from 'react-native-paper';
 
-import { Loader, ErrorMessage } from 'components';
-import configureStore from 'store/configureStore'
-import rootSaga from 'sagas'
+import RootNavigator from './RootNavigator';
+import { Loader, AlertMessage, ConfirmMessage } from './components';
+import configureStore from './store/configureStore'
+import rootSaga from './sagas'
 
 
 const RootProvider = () => {
@@ -15,14 +15,15 @@ const RootProvider = () => {
   return (
     <Provider store={store}>
       <PaperProvider
-        theme={DarkTheme}
+        // theme={DarkTheme}
       >
         <RootNavigator>
         </RootNavigator>
       </PaperProvider>
 
       <Loader />
-      <ErrorMessage />
+      <AlertMessage />
+      <ConfirmMessage />
     </Provider >
   );
 };

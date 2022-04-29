@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RootProvider from 'RootProvider';
+import RootProvider from './RootProvider';
 
 
 const Root = () => {

@@ -1,56 +1,51 @@
-import axios from "axios";
+import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import _ from "lodash";
-// import { resolve } from 'dns/promises';
+import _ from 'lodash';
+import { Alert } from 'react-native';
 
-import * as constants from 'constants'
+import * as constants from '../constants'
+import { common } from '../actions';
 
 
 export const callCmsApi = async (param) => {
-    const method = _.isEmpty(param.method) ? 'get' : param.method;
-    const url = param.url;
-    const params = param.params
     const config = {
-        baseURL: constants.HOST_CMS_API,
+        method: _.isEmpty(param.method) ? 'get' : param.method,
+        url: constants.HOST_CMS_API + param.url,
+        data: param.params,
         headers: {
             'Content-Type': 'application/json',
             'CMS-AUTH-TOKEN': await getAsyncStore(constants.CMS_AUTH_TOKEN),
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+            'Access-Control-Allow-Headers': 'x-access-token, Origin, X-Requested-With, Content-Type, Accept',
         },
         timeout: 5000,
     };
 
-    // console.log('axios url', url);
-    console.log('axios params', params);
-    // console.log('axios config', config);
+    console.log('config', config);
 
-    if (method == 'post') {
-        return axios.post(url, params, config);
-        // return axios.post(url, params, config).catch(function (error) {
-            // if (error.response) {
-                // console.log('error', error);
-                // console.log('error.response', error.response);
-        //         // 토큰만료
-        //         if (error.response.status == 403) {
-        //             return Promise.resolve({ 'data': { 'status': 'inValidToken' } });
-        //         }
-        //     };
-        // });
-    } else {
-        return axios.get(url, params, config);
-    }
+    return axios(config);
+    // .then(function (response) {
+    //     console.log('response', response.data);
+    // }).catch(function (error) {
+    //     console.log('error', error);
+    // });
 };
 
-export const showErrorMsg = (action, errorMsg) => {
-    action({
-        type: constants.ERROR_MSG_SHOW,
-        message: errorMsg,
-    });
+export const showAlertMsg = (action, message) => {
+    action(common.alertMsgShow(message));
 }
 
-export const hideErrorMsg = (action) => {
-    action({
-        type: constants.ERROR_MSG_HIDE,
-    });
+export const hideAlertMsg = (action) => {
+    action(common.alertMsgHide());
+}
+
+export const showConfirmMsg = (action, message, callback) => {
+    action(common.confirmMsgShow(message, callback));
+}
+
+export const hideConfirmMsg = (action) => {
+    action(common.confirmMsgHide());
 }
 
 export const setAsyncStore = async (key, value) => {
@@ -73,3 +68,34 @@ export const getAsyncStore = async (key) => {
     }
     return '';
 }
+
+// 토큰만료여부확인
+export function validationToken(status) {
+    if (status == 'inValidToken') { // 토큰만료
+        // 만료토큰정보 삭제
+        setAsyncStore(constants.CMS_AUTH_TOKEN, '');
+        return false;
+    }
+    return true;
+}
+
+
+export function testConfirm(message, action, callBack, param) {
+    console.log('testConfirm action', action);
+    console.log('testConfirm callBack', callBack, param);
+
+    Alert.alert(
+        '',
+        message,
+        [
+            {
+                text: '확인',
+                onPress: () => {
+                    if (_.isFunction(callBack)) action(callBack);
+                },
+            }
+        ]
+    );
+}
+
+

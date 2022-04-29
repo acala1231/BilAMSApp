@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { ActivityIndicator } from 'react-native';
 
-import { loaderStlye } from 'styles/styles'
+import { loaderStlye } from '../styles/styles'
 
 
 const Loader = () => {

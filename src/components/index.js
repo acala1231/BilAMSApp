@@ -1,5 +1,10 @@
 import Loader from './Loader'
-import ErrorMessage from './ErrorMessage'
+import AlertMessage from './AlertMessage'
+import ConfirmMessage from './ConfirmMessage';
 
 
-export { Loader, ErrorMessage };
+export {
+    Loader,
+    AlertMessage,
+    ConfirmMessage
+};
