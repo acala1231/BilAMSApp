@@ -19,7 +19,7 @@ export const callCmsApi = async (param) => {
         timeout: 5000,
     };
 
-    // console.log('axios url', url);
+    console.log('axios url', url);
     console.log('axios params', params);
     // console.log('axios config', config);
 
@@ -72,4 +72,14 @@ export const getAsyncStore = async (key) => {
         console.log(e);
     }
     return '';
+}
+
+// 토큰만료여부확인
+export function validationToken(status) {
+    if (status == 'inValidToken') { // 토큰만료
+        // 만료토큰정보 삭제
+        commJs.setAsyncStore(constants.CMS_AUTH_TOKEN, '');
+        return false;
+    }
+    return true;
 }

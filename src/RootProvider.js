@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { DarkTheme, Provider as PaperProvider } from 'react-native-paper';
+import { DarkTheme, DefaultTheme,  Provider as PaperProvider } from 'react-native-paper';
 import RootNavigator from 'RootNavigator';
 
 import { Loader, ErrorMessage } from 'components';
@@ -15,7 +15,7 @@ const RootProvider = () => {
   return (
     <Provider store={store}>
       <PaperProvider
-        theme={DarkTheme}
+        // theme={DarkTheme}
       >
         <RootNavigator>
         </RootNavigator>

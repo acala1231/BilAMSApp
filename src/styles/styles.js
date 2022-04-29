@@ -72,7 +72,7 @@ export const prjMngStlye = StyleSheet.create({
     // backgroundColor: 'yellow',
   },
   listContainer: {
-    height: '80%',
+    height: '100%',
     // backgroundColor: 'orange',
   },
   container: {
@@ -88,10 +88,6 @@ export const prjMngStlye = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-  modal: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   aplyContainer: {
     width: 320,
     backgroundColor: 'white',
@@ -102,16 +98,33 @@ export const prjMngStlye = StyleSheet.create({
     width: 320,
     height: 500,
   },
+  modal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   singleView: {
-    margin: 10,
+    margin: 5,
   },
   multiView: {
-    margin: 10,
+    margin: 5,
     flexDirection: 'row',
   },
   flatList: {
     width: Dimensions.get('window').width,
-    flexGrow: 0,
+    // flexGrow: 0,
+    // backgroundColor: 'white',
+    // padding: 5,
+  },
+  listItem: {
+    backgroundColor: 'white',
+    margin: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   }
 });
 
