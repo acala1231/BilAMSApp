@@ -100,6 +100,7 @@ const initRegWorkPlcState = {
 export function regWorkPlc(state = initRegWorkPlcState, action) {
     switch (action.type) {
         case constants.REG_WRK_PLC_REQUEST:
+            console.log('reducer regWorkPlc action', action);
             return produce(state, draft => {
                 draft.isProcessing = true;
                 draft.isSuccess = initAplyWorkPlcState.isSuccess;

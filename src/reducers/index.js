@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux'
 
-import { loader, alertMsg, confirmMsg } from './common'
+import {
+  loader,
+  alertMsg,
+  confirmMsg
+} from './common'
 import {
   emp,
   workPlcList,

@@ -22,7 +22,7 @@ export const callCmsApi = async (param) => {
         timeout: 5000,
     };
 
-    console.log('config', config);
+    // console.log('config', config);
 
     return axios(config);
     // .then(function (response) {
@@ -40,8 +40,8 @@ export const hideAlertMsg = (action) => {
     action(common.alertMsgHide());
 }
 
-export const showConfirmMsg = (action, message, callback) => {
-    action(common.confirmMsgShow(message, callback));
+export const showConfirmMsg = (action, message, callback, params) => {
+    action(common.confirmMsgShow(message, callback, params));
 }
 
 export const hideConfirmMsg = (action) => {
@@ -78,24 +78,3 @@ export function validationToken(status) {
     }
     return true;
 }
-
-
-export function testConfirm(message, action, callBack, param) {
-    console.log('testConfirm action', action);
-    console.log('testConfirm callBack', callBack, param);
-
-    Alert.alert(
-        '',
-        message,
-        [
-            {
-                text: '확인',
-                onPress: () => {
-                    if (_.isFunction(callBack)) action(callBack);
-                },
-            }
-        ]
-    );
-}
-
-

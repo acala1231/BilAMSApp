@@ -26,11 +26,12 @@ export function confirmMsgHide() {
     return { type: constants.CONFIRM_MSG_HIDE }
 }
 
-export function confirmMsgShow(messsage, callback) {
-    console.log('action callback', callback);
+export function confirmMsgShow(messsage, callback, params) {
+    // console.log('action callback', callback);
     return {
         type: constants.CONFIRM_MSG_SHOW,
         message: messsage,
         callback: callback,
+        params: params
     }
 }

@@ -82,6 +82,7 @@ export const aplyWrkPlcFail = () => {
 }
 
 export const regWrkPlc = (params) => {
+    console.log('action regWrkPlc', params);
     return {
         type: constants.REG_WRK_PLC_REQUEST,
         url: '/emp-work',

@@ -60,12 +60,11 @@ const ProjectMng = () => {
     }
 
     const regWrkPlc = (wrkPlcNo) => {
-        common.testConfirm('등록 하시겠습니까?.', action, cmsApi.regWrkPlc, wrkPlcNo);
+        common.showConfirmMsg(action, '등록 하시겠습니까?.', cmsApi.regWrkPlc({ wrkPlcNo }), { wrkPlcNo });
     }
 
     // 근무지리스트 조회
     const getWrkPlcList = (pageNo) => {
-        console.log(pageNo);
         if (maxPageNo == 0 || pageNo > maxPageNo) return;
         action(cmsApi.getWrkPlcList({ 'pageNo': pageNo }));
     }
@@ -93,7 +92,7 @@ const ProjectMng = () => {
 
     // page mount
     useEffect(() => {
-        // getWrkPlcList(1);
+        getWrkPlcList(1);
     }, []);
 
     // 데이터 조회해올때
@@ -215,8 +214,6 @@ const ProjectMng = () => {
                             style={prjMngStlye.adrPostcode}
                             jsOptions={{ animation: true, hideMapBtn: true }}
                             onSelected={data => {
-                                console.log(JSON.stringify(data));
-                                console.log(data.query);
                                 setAdr(data.address);
                                 setQuery(data.query);
                                 setZipcode(data.zonecode);
