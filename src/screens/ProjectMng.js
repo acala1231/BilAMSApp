@@ -14,7 +14,6 @@ import { cmsApi } from '../actions';
 
 
 
-
 const ProjectMng = () => {
 
     const action = useDispatch();
@@ -66,6 +65,7 @@ const ProjectMng = () => {
 
     // 근무지리스트 조회
     const getWrkPlcList = (pageNo) => {
+        console.log(pageNo);
         if (maxPageNo == 0 || pageNo > maxPageNo) return;
         action(cmsApi.getWrkPlcList({ 'pageNo': pageNo }));
     }
@@ -93,7 +93,7 @@ const ProjectMng = () => {
 
     // page mount
     useEffect(() => {
-        getWrkPlcList(1);
+        // getWrkPlcList(1);
     }, []);
 
     // 데이터 조회해올때
