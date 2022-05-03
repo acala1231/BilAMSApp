@@ -1,5 +1,10 @@
-import * as cmsApi from './cmsApi';
 import * as common from './common';
+import * as location from './location';
+import * as cmsApi from './cmsApi';
 
 
-export { cmsApi, common };
+export {
+    common,
+    location,
+    cmsApi
+};

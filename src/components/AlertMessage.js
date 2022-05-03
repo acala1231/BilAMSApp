@@ -11,7 +11,6 @@ const AlertMessage = () => {
 
   useEffect(() => {
     if (isShow) {
-      console.log(message ? message : '에러가 발생했습니다.');
       Alert.alert(
         '',
         message ? message : '에러가 발생했습니다.',

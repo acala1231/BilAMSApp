@@ -111,17 +111,21 @@ function* getWrkPlcList(action) {
 
 // 근무지 신규등록 신청
 function* aplyWrkPlc(action) {
+    console.log('saga aplyWrkPlc', action);
     yield cmsApiCallWrapper(action, function* (data) {
         yield put(cmsApi.aplyWrkPlcSucc(data));
+        yield put(common.alertMsgShow('신규 근무지 등록 신청이 완료되었습니다.'));
+        if (_.isFunction(action.params.callback)) action.params.callback();
     }, cmsApi.aplyWrkPlcFail);
 }
 
 // 근무지 등록
 function* regWrkPlc(action) {
-    console.log('saga regWrkPlc', action);
     yield cmsApiCallWrapper(action, function* (data) {
         yield put(cmsApi.regWrkPlcSucc(data));
-    }, cmsApi.regWrkPlcFail);
+        yield put(common.alertMsgShow('근무지 변경이 완료되었습니다.'));
+        yield put(cmsApi.getWrkPlcList({ pageNo: 1 }));
+}, cmsApi.regWrkPlcFail);
 }
 
 

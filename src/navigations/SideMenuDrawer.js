@@ -12,12 +12,11 @@ const SideMenuDrawer = () => {
 
   return (
     <Drawer.Navigator
-      // initialRouteName={isInitPw == 'true' ? '비밀번호변경' : '출퇴근기록'}
-      initialRouteName={isInitPw == 'true' ? '비밀번호변경' : '프로젝트관리'}
+      initialRouteName={isInitPw == 'true' ? '비밀번호변경' : '출퇴근기록'}
       drawerContent={({ navigation }) => <SideMenu navigation={navigation} />}
     >
       <Drawer.Screen name='출퇴근기록' component={AttendenceReg} />
-      <Drawer.Screen name='프로젝트관리' component={ProjectMng} />
+      <Drawer.Screen name='근무지관리' component={ProjectMng} />
       <Drawer.Screen name='비밀번호변경' component={PasswordMng} />
     </Drawer.Navigator>
   );

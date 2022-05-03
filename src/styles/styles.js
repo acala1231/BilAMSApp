@@ -67,23 +67,15 @@ export const loginStlye = StyleSheet.create({
 });
 
 export const prjMngStlye = StyleSheet.create({
-  detailContainer: {
-    height: '20%',
-    // backgroundColor: 'yellow',
-  },
   listContainer: {
     height: '100%',
-    // backgroundColor: 'orange',
   },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // marginHorizontal: 20,
   },
   adrContainer: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
     backgroundColor: 'white',
     padding: 10,
     borderRadius: 10,
@@ -111,9 +103,6 @@ export const prjMngStlye = StyleSheet.create({
   },
   flatList: {
     width: Dimensions.get('window').width,
-    // flexGrow: 0,
-    // backgroundColor: 'white',
-    // padding: 5,
   },
   listItem: {
     backgroundColor: 'white',
@@ -126,14 +115,4 @@ export const prjMngStlye = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   }
-});
-
-
-
-
-export const sampleStlye = StyleSheet.create({
-  backBlack: {
-    backgroundColor: 'black',
-  }
-
 });

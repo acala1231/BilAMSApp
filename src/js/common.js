@@ -30,7 +30,7 @@ export const callCmsApi = async (param) => {
     // }).catch(function (error) {
     //     console.log('error', error);
     // });
-};
+}
 
 export const showAlertMsg = (action, message) => {
     action(common.alertMsgShow(message));
@@ -40,8 +40,8 @@ export const hideAlertMsg = (action) => {
     action(common.alertMsgHide());
 }
 
-export const showConfirmMsg = (action, message, callback, params) => {
-    action(common.confirmMsgShow(message, callback, params));
+export const showConfirmMsg = (action, message, callback) => {
+    action(common.confirmMsgShow(message, callback));
 }
 
 export const hideConfirmMsg = (action) => {

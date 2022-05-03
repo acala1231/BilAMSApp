@@ -51,22 +51,15 @@ const initConfirmMsgState = {
     isShow: false,
     message: null,
     callback: undefined,
-    params: {},
 }
 
 export function confirmMsg(state = initConfirmMsgState, action) {
-
-    
     switch (action.type) {
         case constants.CONFIRM_MSG_SHOW:
-
-            
-
             return produce(state, draft => {
                 draft.isShow = true;
                 draft.message = action.message;
                 draft.callback = action.callback;
-                draft.params = action.params;
                 
             });
         case constants.CONFIRM_MSG_HIDE:
@@ -74,7 +67,6 @@ export function confirmMsg(state = initConfirmMsgState, action) {
                 draft.isShow = initConfirmMsgState.isShow;
                 draft.message = initConfirmMsgState.message;
                 draft.callback = initConfirmMsgState.callback;
-                draft.params = initConfirmMsgState.params;
             });
         default:
             return state;

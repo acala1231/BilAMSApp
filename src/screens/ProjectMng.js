@@ -1,42 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView, FlatList, RefreshControl } from 'react-native';
-import { Title, Button, TextInput, DarkTheme, DefaultTheme, Modal, Portal, IconButton, Dialog, List, Card, Caption, Headline, Paragraph, Subheading, Text } from 'react-native-paper';
+import { View, FlatList } from 'react-native';
+import { Title, Button, TextInput, Modal, Portal, IconButton, List } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import Postcode from '@actbase/react-daum-postcode';
 import _ from 'lodash';
-import { useDrawerStatus } from '@react-navigation/drawer';
-import WebView from 'react-native-webview';
 
-import { LOADER_START, LOADER_END } from '../constants';
 import { common } from '../js';
-import { prjMngStlye, sampleStlye } from '../styles/styles';
+import { prjMngStlye } from '../styles/styles';
 import { cmsApi } from '../actions';
 
 
 
 const ProjectMng = () => {
-
     const action = useDispatch();
 
     // 팝업
     const [isAdrModal, setAdrModal] = useState(false);
     const [isAplyModal, setAplyModal] = useState(false);
 
-    // 근무지신규등록신청
+    // 신규근무지등록관련
     const [prjNm, setPrjNm] = useState('');
-    const [zipcode, setZipcode] = useState('');
+    const [zipcd, setZipcd] = useState('');
     const [adr, setAdr] = useState('');
     const [dtlAdr, setDtlAdr] = useState('');
     const [query, setQuery] = useState('');
 
-    // 근무지리스트
+    // 근무지리스트조회관련
+    const data = useSelector(state => state.workPlcList.data); // 조회데이터
     const [pageNo, setPageNo] = useState(1); // 리스트페이지번호
     const [maxPageNo, setMaxPageNo] = useState(1); // 리스트페이지번호
     const [list, setList] = useState([]); // 리스트데이터
-    const data = useSelector(state => state.workPlcList.data); // 조회데이터
     const [refreshing, setRefreshing] = useState(false); // 리스트 초기화
-
-
 
 
     // 프로젝트 신규 등록신청 유효성검사
@@ -46,7 +40,7 @@ const ProjectMng = () => {
             return;
         }
 
-        if (_.isEmpty(zipcode) || _.isEmpty(adr)) {
+        if (_.isEmpty(zipcd) || _.isEmpty(adr)) {
             common.showAlertMsg(action, '주소를 입력하세요.');
             return;
         }
@@ -56,11 +50,28 @@ const ProjectMng = () => {
             return;
         }
 
-        common.showConfirmMsg(action, '등록 신청 하시겠습니까?.', cmsApi.aplyWrkPlc({ prjNm, zipcode, adr, dtlAdr, query }));
+        const params = {
+            prjNm: prjNm,
+            zipcd: zipcd,
+            adr: adr,
+            dtlAdr: dtlAdr,
+            query: query,
+            callback: () => hideAplyModal()
+        };
+
+        const callback = () => {
+            action(cmsApi.aplyWrkPlc(params));
+        };
+
+        common.showConfirmMsg(action, '신규 근무지를 등록 신청 하시겠습니까?.', () => callback());
     }
 
     const regWrkPlc = (wrkPlcNo) => {
-        common.showConfirmMsg(action, '등록 하시겠습니까?.', cmsApi.regWrkPlc({ wrkPlcNo }), { wrkPlcNo });
+        const callback = () => {
+            action(cmsApi.regWrkPlc({ wrkPlcNo }));
+        };
+
+        common.showConfirmMsg(action, '근무지로 등록 하시겠습니까?.', () => callback());
     }
 
     // 근무지리스트 조회
@@ -82,13 +93,14 @@ const ProjectMng = () => {
     const hideAplyModal = () => {
         // 신청정보 초기화
         setPrjNm('');
-        setZipcode('');
+        setZipcd('');
         setAdr('');
         setDtlAdr('');
         setQuery('');
         setAplyModal(false);
-        setAdrModal(false)
+        setAdrModal(false);
     }
+
 
     // page mount
     useEffect(() => {
@@ -118,11 +130,17 @@ const ProjectMng = () => {
     return (
         <View style={prjMngStlye.container}>
             <View style={prjMngStlye.listContainer}>
-                <View style={prjMngStlye.multiView}>
+                <View style={{
+                    marginTop: 10,
+                    margin: 5,
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                }}>
+                    {/* <View style={prjMngStlye.multiView}> */}
                     <Button
                         mode="contained"
                         onPress={() => setAplyModal(true)}
-                    >등록</Button>
+                    >신규근무지등록신청</Button>
 
                 </View>
                 <FlatList
@@ -134,8 +152,16 @@ const ProjectMng = () => {
                             style={prjMngStlye.listItem}
                             title={item.prjNm}
                             description={item.adr}
-                            // left={props => <List.Icon {...props} icon="pin" />}
-                            right={(props) => <IconButton {...props} icon={item.wrkRegYn == 'Y' ? 'pin' : 'pin-off'} onPress={() => regWrkPlc(item.wrkPlcNo)} />}
+                            right={(props) =>
+                                <Button
+                                    style={{ justifyContent: 'center', }}
+                                    icon={item.wrkRegYn == 'Y' ? 'pin' : 'pin-off'}
+                                    mode="text"
+                                    onPress={item.wrkRegYn == 'N' ? () => regWrkPlc(item.wrkPlcNo) : undefined}
+                                >
+                                    {item.wrkRegYn == 'N' ? '변경' : '출근중'}
+                                </Button>
+                            }
                         />
                     )}
                     keyExtractor={item => item.wrkPlcNo}
@@ -167,7 +193,7 @@ const ProjectMng = () => {
                                 style={{ width: '80%' }}
                                 label="우편번호"
                                 disabled={true}
-                                value={zipcode}
+                                value={zipcd}
                             />
                             <View style={{ width: '20%', alignItems: 'center', justifyContent: 'center' }}>
                                 <IconButton
@@ -216,14 +242,14 @@ const ProjectMng = () => {
                             onSelected={data => {
                                 setAdr(data.address);
                                 setQuery(data.query);
-                                setZipcode(data.zonecode);
+                                setZipcd(data.zonecode);
                                 setAdrModal(false);
                             }}
                         />
                     </View>
                 </Modal>
             </Portal>
-        </View>
+        </View >
     );
 }
 

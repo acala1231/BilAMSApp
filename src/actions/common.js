@@ -12,26 +12,24 @@ export function loaderEnd() {
 }
 
 export function alertMsgHide() {
-    return { type: constants.ALERT_MSG_HIDE }
+    return { type: constants.ALERT_MSG_HIDE };
 }
 
 export function alertMsgShow(messsage) {
     return {
         type: constants.ALERT_MSG_SHOW,
         message: messsage,
-    }
+    };
 }
 
 export function confirmMsgHide() {
-    return { type: constants.CONFIRM_MSG_HIDE }
+    return { type: constants.CONFIRM_MSG_HIDE };
 }
 
-export function confirmMsgShow(messsage, callback, params) {
-    // console.log('action callback', callback);
+export function confirmMsgShow(messsage, callback) {
     return {
         type: constants.CONFIRM_MSG_SHOW,
         message: messsage,
         callback: callback,
-        params: params
-    }
+    };
 }
