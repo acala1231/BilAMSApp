@@ -69,8 +69,8 @@ const SideMenu = (props) => {
                 color={color}
                 size={size} />
             )}
-            label="프로젝트관리"
-            onPress={() => { props.navigation.navigate('프로젝트관리') }}
+            label="근무지관리"
+            onPress={() => { props.navigation.navigate('근무지관리') }}
           />
         </Drawer.Section>
         <Drawer.Section>

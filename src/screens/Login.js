@@ -54,46 +54,49 @@ const Login = () => {
 
 
     useEffect(() => {
-        setEmpNo('22010101');
-        setEmpPw('qweasd1122!');
+        // setEmpNo('22010101');
+        // setEmpPw('qweasd1122!');
 
         checkToken(action);
     }, []);
 
     return (
         <View style={commonStlye.defalutView}>
-            <Image
-                style={loginStlye.logo}
-                source={{
-                    uri: 'https://reactnative.dev/img/tiny_logo.png',
-                }}
-            />
-            <TextInput
-                mode='outlined'
-                label='사번'
-                placeholder='Type something'
-                style={loginStlye.input}
-                value={empNo}
-                keyboardType='number-pad'
-                maxLength={8}
-                onChangeText={(text) => setEmpNo(text)}
-            />
-            <TextInput
-                label='비밀번호'
-                secureTextEntry={isSecretPw}
-                right={<TextInput.Icon name='eye' onPress={() => setIsSecretPw(!isSecretPw)} />}
-                style={loginStlye.input}
-                value={empPw}
-                maxLength={20}
-                onChangeText={(text) => setEmpPw(text)}
-            />
-            <Button
-                mode="contained"
-                onPress={() => validate()}
-                style={loginStlye.button}
-            >
-                로그인
-            </Button>
+            <View style={commonStlye.container}>
+                {/* <View style={loginStlye.logoWrapper}> */}
+                <Image
+                    style={loginStlye.logo}
+                    source={{
+                        uri: 'https://reactnative.dev/img/tiny_logo.png',
+                    }}
+                />
+                {/* </View> */}
+                <TextInput
+                    mode='outlined'
+                    label='사번'
+                    placeholder='Type something'
+                    style={loginStlye.input}
+                    value={empNo}
+                    keyboardType='number-pad'
+                    maxLength={8}
+                    onChangeText={(text) => setEmpNo(text)}
+                />
+                <TextInput
+                    mode='outlined'
+                    label='비밀번호'
+                    secureTextEntry={isSecretPw}
+                    right={<TextInput.Icon name='eye' onPress={() => setIsSecretPw(!isSecretPw)} />}
+                    style={loginStlye.input}
+                    value={empPw}
+                    maxLength={20}
+                    onChangeText={(text) => setEmpPw(text)}
+                />
+                <Button
+                    mode="contained"
+                    onPress={() => validate()}
+                    style={loginStlye.button}
+                >로그인</Button>
+            </View>
         </View >
     );
 }

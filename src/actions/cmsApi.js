@@ -103,4 +103,46 @@ export const regWrkPlcFail = () => {
     };
 }
 
+export const getEmpCmt = (params) => {
+    return {
+        type: constants.GET_EMP_CMT_REQUEST,
+        url: '/emp-cmt',
+        method: 'get',
+        params,
+    };
+}
 
+export const getEmpCmtSucc = (data) => {
+    return {
+        type: constants.GET_EMP_CMT_SUCCESS,
+        data,
+    };
+}
+
+export const getEmpCmtFail = () => {
+    return {
+        type: constants.GET_EMP_CMT_FAILURE,
+    };
+}
+
+export const regEmpCmt = (params) => {
+    return {
+        type: constants.REG_EMP_CMT_REQUEST,
+        url: '/emp-cmt',
+        method: 'post',
+        params,
+    };
+}
+
+export const regEmpCmtSucc = (data) => {
+    return {
+        type: constants.REG_EMP_CMT_SUCCESS,
+        data,
+    };
+}
+
+export const regEmpCmtFail = () => {
+    return {
+        type: constants.REG_EMP_CMT_FAILURE,
+    };
+}

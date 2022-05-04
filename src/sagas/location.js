@@ -1,11 +1,8 @@
-import { takeEvery, put, call, select } from 'redux-saga/effects';
-import produce from 'immer';
-import _, { fill } from 'lodash';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import * as Location from 'expo-location';
 
 import * as constants from '../constants'
-import { common as commJs } from '../js';
-import { cmsApi, common, location } from '../actions';
+import { common, location } from '../actions';
 
 
 const asyncGetPosition = async () => {

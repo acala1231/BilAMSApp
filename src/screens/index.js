@@ -1,7 +1,7 @@
-import AttendenceReg from './AttendenceReg';
+import CommuteMng from './CommuteMng';
 import Login from './Login';
-import ProjectMng from './ProjectMng';
+import WrkPlcMng from './WrkPlcMng';
 import SideMenu from './SideMenu';
 import PasswordMng from './PasswordMng';
 
-export { AttendenceReg, Login, ProjectMng, SideMenu, PasswordMng };
+export { CommuteMng, Login, WrkPlcMng, SideMenu, PasswordMng };

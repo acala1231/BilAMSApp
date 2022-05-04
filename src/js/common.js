@@ -70,7 +70,7 @@ export const getAsyncStore = async (key) => {
 }
 
 // 토큰만료여부확인
-export function validationToken(status) {
+export const validationToken = (status) => {
     if (status == 'inValidToken') { // 토큰만료
         // 만료토큰정보 삭제
         setAsyncStore(constants.CMS_AUTH_TOKEN, '');
@@ -78,3 +78,4 @@ export function validationToken(status) {
     }
     return true;
 }
+

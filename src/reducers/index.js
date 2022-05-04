@@ -11,6 +11,8 @@ import {
   workPlcList,
   aplyWorkPlc,
   regWorkPlc,
+  empCmt,
+  regEmpCmt,
 } from './callApi';
 
 
@@ -24,6 +26,8 @@ const rootReducer = combineReducers({
   workPlcList,
   aplyWorkPlc,
   regWorkPlc,
+  empCmt,
+  regEmpCmt,
 })
 
 export default rootReducer

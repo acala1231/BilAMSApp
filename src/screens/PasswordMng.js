@@ -41,44 +41,44 @@ const PasswordMng = () => {
     const [isSecretCurPw, setIsSecretCurPw] = useState(true);
     const [isSecretNewPw, setIsSecretNewPw] = useState(true);
 
-    // const data = useSelector(state => state.emp.data);
-    // console.log('PasswordMng data', data);
-
-
-    useEffect(() => {
-        setCurEmpPw('qweasd1122!');
-        setNewEmpPw('qweasd1122!');
-    }, []);
-
+    
+    // useEffect(() => {
+    //     setCurEmpPw('qweasd1122!');
+    //     setNewEmpPw('qweasd1122!');
+    // }, []);
 
 
     return (
         <View style={commonStlye.defalutView}>
-            <TextInput
-                label='기존 비밀번호'
-                secureTextEntry={isSecretCurPw}
-                right={<TextInput.Icon name='eye' onPress={() => setIsSecretCurPw(!isSecretCurPw)} />}
-                style={loginStlye.input}
-                value={curEmpPw}
-                maxLength={20}
-                onChangeText={(text) => setCurEmpPw(text)}
-            />
-            <TextInput
-                label='새 비밀번호'
-                secureTextEntry={isSecretNewPw}
-                right={<TextInput.Icon name='eye' onPress={() => setIsSecretNewPw(!isSecretNewPw)} />}
-                style={loginStlye.input}
-                value={newEmpPw}
-                maxLength={20}
-                onChangeText={(text) => setNewEmpPw(text)}
-            />
-            <Button
-                mode="contained"
-                onPress={() => validate(action, curEmpPw, newEmpPw)}
-                style={loginStlye.button}
-            >
-                비밀번호변경
-            </Button>
+            <View style={loginStlye.container}>
+                <TextInput
+                    mode='outlined'
+                    label='기존 비밀번호'
+                    secureTextEntry={isSecretCurPw}
+                    right={<TextInput.Icon name='eye' onPress={() => setIsSecretCurPw(!isSecretCurPw)} />}
+                    style={loginStlye.input}
+                    value={curEmpPw}
+                    maxLength={20}
+                    onChangeText={(text) => setCurEmpPw(text)}
+                />
+                <TextInput
+                    mode='outlined'
+                    label='새 비밀번호'
+                    secureTextEntry={isSecretNewPw}
+                    right={<TextInput.Icon name='eye' onPress={() => setIsSecretNewPw(!isSecretNewPw)} />}
+                    style={loginStlye.input}
+                    value={newEmpPw}
+                    maxLength={20}
+                    onChangeText={(text) => setNewEmpPw(text)}
+                />
+                <Button
+                    mode="contained"
+                    onPress={() => validate(action, curEmpPw, newEmpPw)}
+                    style={loginStlye.button}
+                >
+                    비밀번호변경
+                </Button>
+            </View>
         </View>
     );
 }

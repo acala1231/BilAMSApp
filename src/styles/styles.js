@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+import { DefaultTheme } from 'react-native-paper';
 
 
 export const commonStlye = StyleSheet.create({
@@ -8,6 +8,13 @@ export const commonStlye = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: '#636e72',
+  },
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 20,
+    width: Dimensions.get('window').width - 40,
+    height: Dimensions.get('window').height - 40,
   },
 });
 
@@ -48,32 +55,26 @@ export const drawerStyles = StyleSheet.create({
 
 export const loginStlye = StyleSheet.create({
   logo: {
-    width: 150,
-    height: 150,
-    margin: 20,
+    width: Dimensions.get('window').width * 50 / 100,
+    height: Dimensions.get('window').width * 50 / 100,
   },
   input: {
-    width: 200,
+    width: '100%',
     height: 50,
     margin: 5,
   },
   button: {
-    width: 200,
+    width: '100%',
     height: 50,
     margin: 5,
-    backgroundColor: '#6e6e6e',
+    // backgroundColor: '#6e6e6e',
     justifyContent: 'center'
   }
 });
 
-export const prjMngStlye = StyleSheet.create({
+export const wrkPlcMngStyle = StyleSheet.create({
   listContainer: {
     height: '100%',
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   adrContainer: {
     backgroundColor: 'white',
@@ -114,5 +115,23 @@ export const prjMngStlye = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+  }
+});
+
+export const CommuteMngStyle = StyleSheet.create({
+  text: {
+    textAlign: 'center',
+  },
+  mapView: {
+    width: Dimensions.get('window').width - 40,
+    height: Dimensions.get('window').width - 40,
+  },
+  commuteBtn: {
+    margin: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: DefaultTheme.colors.surface,
+    width: Dimensions.get('window').width * 40 / 100,
+    height: Dimensions.get('window').width * 40 / 100
   }
 });
