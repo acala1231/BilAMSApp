@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import * as Location from 'expo-location';
-import MapView, { Marker, Circle, Polygon } from 'react-native-maps';
-import { Title, Button, TextInput, Modal, Portal, IconButton, List, Text } from 'react-native-paper';
+import MapView, { Marker, Circle } from 'react-native-maps';
+import { Text } from 'react-native-paper';
 import _ from 'lodash';
-import produce from "immer";
 
 import { common } from '../js';
 import { commonStlye, wrkPlcMngStyle, CommuteMngStyle } from '../styles/styles';
@@ -13,16 +11,6 @@ import { cmsApi, location as loca } from '../actions';
 import circleIcon from '../../assets/circleIcon.png';
 import officeIcon from '../../assets/officeIcon.png';
 
-// empCmt Object {
-//     "cmtDd": "20220504",
-//     "cmtEndDd": "0000",
-//     "cmtStrDd": "0000",
-//     "empNo": 22010101,
-//     "lngt": 127.017423167,
-//     "lttd": 37.5112556632,
-//     "prjNm": "미니스톱 잠원점",
-//     "wrkPlcNo": 3,
-//   }
 
 // 거리비교
 const compareDistance = (lttd1, lngt1, lttd2, lngt2) => {
@@ -55,6 +43,7 @@ const CommuteMng = () => {
     const [isDisableComEndBtn, setIsDisableComEndBtn] = useState(true);
 
 
+    // 출근등록
     const onCommuteStart = () => {
         const callback = () => {
             action(cmsApi.regEmpCmt({
@@ -68,6 +57,7 @@ const CommuteMng = () => {
         common.showConfirmMsg(action, '출근등록을 하시겠습니까?', () => callback());
     };
 
+    // 퇴근등록
     const onCommuteEnd = () => {
         const callback = () => {
             action(cmsApi.regEmpCmt({
@@ -85,7 +75,6 @@ const CommuteMng = () => {
     useEffect(() => {
         // 현재위치 조회
         action(loca.getCurLocation());
-
     }, []);
 
     // 데이터 조회해올때
@@ -101,10 +90,9 @@ const CommuteMng = () => {
     }, [empCmt]);
 
     useEffect(() => {
-        console.log('distance', distance);
-
         // 위변조여부
         if (location.mocked) return;
+
         // 출퇴근가능거리여부
         if (distance > 200) return;
 
@@ -120,26 +108,11 @@ const CommuteMng = () => {
             console.log("퇴근가능");
             setIsDisableComEndBtn(false);
         }
-
     }, [distance]);
-
 
 
     return (
         <View style={commonStlye.defalutView}>
-
-{/* primary: string;
-        background: string;
-        surface: string;
-        accent: string;
-        error: string;
-        text: string;
-        onSurface: string;
-        disabled: string;
-        placeholder: string;
-        backdrop: string;
-        notification: string; */}
-
             <View style={commonStlye.container}>
                 <View style={wrkPlcMngStyle.singleView}>
                     <Text style={CommuteMngStyle.text}>출퇴근기록</Text>
@@ -149,7 +122,7 @@ const CommuteMng = () => {
                 </View>
                 <View style={wrkPlcMngStyle.multiView}>
                     <TouchableOpacity
-                        style={CommuteMngStyle.commuteBtn}
+                        style={CommuteMngStyle.commuteLBtn}
                         disabled={isDisableComStrBtn}
                         onPress={() => onCommuteStart()}
                     >
@@ -157,7 +130,7 @@ const CommuteMng = () => {
                         <Text style={CommuteMngStyle.text}>출근</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={CommuteMngStyle.commuteBtn}
+                        style={CommuteMngStyle.commuteRBtn}
                         disabled={isDisableComEndBtn}
                         onPress={() => onCommuteEnd()}
                     >
@@ -165,7 +138,7 @@ const CommuteMng = () => {
                         <Text style={CommuteMngStyle.text}>퇴근</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={CommuteMngStyle.mapView}>
+                <View style={wrkPlcMngStyle.singleView}>
                     {location && location.coords && location.coords.latitude && empCmt && empCmt.lttd && empCmt.lngt ?
                         <MapView
                             style={CommuteMngStyle.mapView}
@@ -223,15 +196,3 @@ const CommuteMng = () => {
 }
 
 export default CommuteMng;
-
-const styles = StyleSheet.create({
-    text: {
-        textAlign: 'center',
-    },
-    map: {
-        width: Dimensions.get('window').width - 40,
-        height: Dimensions.get('window').width - 40,
-        //   width: Dimensions.get('window').width,
-        //   height: Dimensions.get('window').height,
-    },
-});

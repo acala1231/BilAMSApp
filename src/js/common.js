@@ -25,11 +25,6 @@ export const callCmsApi = async (param) => {
     // console.log('config', config);
 
     return axios(config);
-    // .then(function (response) {
-    //     console.log('response', response.data);
-    // }).catch(function (error) {
-    //     console.log('error', error);
-    // });
 }
 
 export const showAlertMsg = (action, message) => {
@@ -79,3 +74,9 @@ export const validationToken = (status) => {
     return true;
 }
 
+// 비밀번호유형체크
+export const chkPwReg = (empPw) => {
+    //  8 ~ 10자 영문, 숫자 조합
+    const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
+    return reg.test(empPw);
+}

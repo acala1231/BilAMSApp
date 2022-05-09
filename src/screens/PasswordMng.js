@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, View, Alert } from 'react-native';
+import { Text, View, Alert, Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import _ from 'lodash'
 
@@ -22,10 +22,7 @@ const validate = (action, curEmpPw, newEmpPw) => {
         return;
     }
 
-    //  8 ~ 10자 영문, 숫자 조합
-    const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
-
-    if (!reg.test(newEmpPw)) {
+    if (!common.chkPwReg(newEmpPw)) {
         common.showAlertMsg(action, '비밀번호는 문자, 숫자, 특수문자를 포함하여 8~16자 이내로 입력하여야 합니다.');
         return;
     }
@@ -41,16 +38,10 @@ const PasswordMng = () => {
     const [isSecretCurPw, setIsSecretCurPw] = useState(true);
     const [isSecretNewPw, setIsSecretNewPw] = useState(true);
 
-    
-    // useEffect(() => {
-    //     setCurEmpPw('qweasd1122!');
-    //     setNewEmpPw('qweasd1122!');
-    // }, []);
-
 
     return (
         <View style={commonStlye.defalutView}>
-            <View style={loginStlye.container}>
+            <View style={commonStlye.container}>
                 <TextInput
                     mode='outlined'
                     label='기존 비밀번호'

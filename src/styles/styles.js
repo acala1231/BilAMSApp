@@ -7,7 +7,6 @@ export const commonStlye = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: '#636e72',
   },
   container: {
     alignItems: 'center',
@@ -67,7 +66,6 @@ export const loginStlye = StyleSheet.create({
     width: '100%',
     height: 50,
     margin: 5,
-    // backgroundColor: '#6e6e6e',
     justifyContent: 'center'
   }
 });
@@ -126,12 +124,26 @@ export const CommuteMngStyle = StyleSheet.create({
     width: Dimensions.get('window').width - 40,
     height: Dimensions.get('window').width - 40,
   },
-  commuteBtn: {
-    margin: 5,
+  commuteLBtn: {
+    marginTop: 20,
+    marginBottom: 0,
+    marginLeft: 20,
+    marginRight: 5,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: DefaultTheme.colors.surface,
-    width: Dimensions.get('window').width * 40 / 100,
-    height: Dimensions.get('window').width * 40 / 100
+    width: (Dimensions.get('window').width - 50) / 2,
+    height: (Dimensions.get('window').width - 50) / 2
+  },
+  commuteRBtn: {
+    marginTop: 20,
+    marginBottom: 0,
+    marginLeft: 5,
+    marginRight: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: DefaultTheme.colors.surface,
+    width: (Dimensions.get('window').width - 50) / 2,
+    height: (Dimensions.get('window').width - 50) / 2
   }
 });

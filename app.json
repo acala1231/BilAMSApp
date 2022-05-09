@@ -17,10 +17,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "test"
+      "bundleIdentifier": "com.biltd.bilcmsapp",
+      "buildNumber": "1.0.0",
+      "supportsTablet": true
     },
     "android": {
+      "package": "com.biltd.bilcmsapp",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

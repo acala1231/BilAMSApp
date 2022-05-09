@@ -35,6 +35,11 @@ const Login = () => {
             return;
         }
 
+        if (!common.chkPwReg(empPw)) {
+            common.showAlertMsg(action, '비밀번호는 문자, 숫자, 특수문자를 포함하여 8~16자 이내로 입력하여야 합니다.');
+            return;
+        }
+
         // 로그인
         action(cmsApi.loginReuest({ empNo, empPw }));
     }
@@ -63,14 +68,12 @@ const Login = () => {
     return (
         <View style={commonStlye.defalutView}>
             <View style={commonStlye.container}>
-                {/* <View style={loginStlye.logoWrapper}> */}
                 <Image
                     style={loginStlye.logo}
                     source={{
                         uri: 'https://reactnative.dev/img/tiny_logo.png',
                     }}
                 />
-                {/* </View> */}
                 <TextInput
                     mode='outlined'
                     label='사번'

@@ -9,36 +9,33 @@ import { drawerStyles } from '../styles/styles';
 import { cmsApi } from '../actions';
 
 
-function logout(action) {
-  Alert.alert(
-    '',
-    '로그아웃 하시겠습니까?',
-    [
-      {
-        text: "취소",
-        style: "cancel"
-      },
-      { text: "확인", onPress: () => { action(cmsApi.logoutRequest()) } }
-
-    ]
-  );
-}
-
 const SideMenu = (props) => {
   const action = useDispatch();
   const empInfo = useSelector(state => state.emp.empInfo);
+
+  const navigate = (screenNm) => {
+    props.navigation.navigate(screenNm);
+  }
+
+  const logout = () => {
+    Alert.alert(
+      '',
+      '로그아웃 하시겠습니까?',
+      [
+        {
+          text: "취소",
+          style: "cancel"
+        },
+        { text: "확인", onPress: () => { action(cmsApi.logoutRequest()) } }
+
+      ]
+    );
+  }
 
   return (
     <DrawerContentScrollView {...props}>
       <View style={drawerStyles.drawerContent} >
         <View style={drawerStyles.userInfoSection}>
-          {/* <Image
-            source={{
-              uri:
-                'https://pbs.twimg.com/profile_images/952545910990495744/b59hSXUd_400x400.jpg',
-            }}
-            size={50}
-          /> */}
           <Image
             style={drawerStyles.logo}
             source={{
@@ -60,7 +57,7 @@ const SideMenu = (props) => {
               />
             )}
             label="출퇴근기록"
-            onPress={() => { props.navigation.navigate('출퇴근기록') }}
+            onPress={() => { navigate('출퇴근기록') }}
           />
           <DrawerItem
             icon={({ color, size }) => (
@@ -70,7 +67,7 @@ const SideMenu = (props) => {
                 size={size} />
             )}
             label="근무지관리"
-            onPress={() => { props.navigation.navigate('근무지관리') }}
+            onPress={() => { navigate('근무지관리') }}
           />
         </Drawer.Section>
         <Drawer.Section>
@@ -82,7 +79,7 @@ const SideMenu = (props) => {
                 size={size} />
             )}
             label="비밀번호변경"
-            onPress={() => { props.navigation.navigate('비밀번호변경') }}
+            onPress={() => { navigate('비밀번호변경') }}
           />
           <DrawerItem
             icon={({ color, size }) => (
@@ -92,7 +89,7 @@ const SideMenu = (props) => {
                 size={size} />
             )}
             label="로그아웃"
-            onPress={() => { logout(action) }}
+            onPress={() => { logout() }}
           />
         </Drawer.Section>
       </View>
