@@ -11,12 +11,14 @@ import { cmsApi } from '../actions';
 
 const SideMenu = (props) => {
   const action = useDispatch();
-  const empInfo = useSelector(state => state.emp.empInfo);
+  const empInfo = useSelector(state => state.emp.empInfo); // 회원정보
 
+  // 페이지이동
   const navigate = (screenNm) => {
     props.navigation.navigate(screenNm);
   }
 
+  // 로그아웃
   const logout = () => {
     Alert.alert(
       '',
@@ -38,9 +40,7 @@ const SideMenu = (props) => {
         <View style={drawerStyles.userInfoSection}>
           <Image
             style={drawerStyles.logo}
-            source={{
-              uri: 'https://reactnative.dev/img/tiny_logo.png',
-            }}
+            source={require('../../assets/bil_300.png')}
           />
         </View>
         <View style={drawerStyles.userInfoSection}>
@@ -51,7 +51,7 @@ const SideMenu = (props) => {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="account-outline"
+                name="rename-box"
                 color={color}
                 size={size}
               />
@@ -62,7 +62,7 @@ const SideMenu = (props) => {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="tune"
+                name="office-building"
                 color={color}
                 size={size} />
             )}
@@ -74,12 +74,12 @@ const SideMenu = (props) => {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="logout"
+                name="account-cog"
                 color={color}
                 size={size} />
             )}
-            label="비밀번호변경"
-            onPress={() => { navigate('비밀번호변경') }}
+            label="설정"
+            onPress={() => { navigate('설정') }}
           />
           <DrawerItem
             icon={({ color, size }) => (

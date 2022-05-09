@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash';
-import { Alert } from 'react-native';
+import * as Device from 'expo-device';
 
 import * as constants from '../constants'
 import { common } from '../actions';
@@ -18,6 +18,7 @@ export const callCmsApi = async (param) => {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
             'Access-Control-Allow-Headers': 'x-access-token, Origin, X-Requested-With, Content-Type, Accept',
+            'device-model-name': Device.modelName,
         },
         timeout: 5000,
     };

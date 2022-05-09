@@ -15,6 +15,13 @@ export const commonStlye = StyleSheet.create({
     width: Dimensions.get('window').width - 40,
     height: Dimensions.get('window').height - 40,
   },
+  singleView: {
+    margin: 5,
+  },
+  multiView: {
+    margin: 5,
+    flexDirection: 'row',
+  },
 });
 
 export const loaderStlye = StyleSheet.create({
@@ -31,8 +38,8 @@ export const loaderStlye = StyleSheet.create({
 
 export const drawerStyles = StyleSheet.create({
   logo: {
-    width: 50,
-    height: 50,
+    width: '100%',
+    height: 150,
   },
   drawerContent: {
     flex: 1,
@@ -40,6 +47,7 @@ export const drawerStyles = StyleSheet.create({
   userInfoSection: {
     paddingLeft: 20,
     marginTop: 15,
+    justifyContent: 'center',
   },
   drawerSection: {
     marginTop: 15,
@@ -54,18 +62,19 @@ export const drawerStyles = StyleSheet.create({
 
 export const loginStlye = StyleSheet.create({
   logo: {
-    width: Dimensions.get('window').width * 50 / 100,
-    height: Dimensions.get('window').width * 50 / 100,
+    width: Dimensions.get('window').width * 80 / 100,
+    height: Dimensions.get('window').width * 80 / 100,
   },
   input: {
-    width: '100%',
     height: 50,
-    margin: 5,
+    marginTop: 5,
+    marginBottom: 5,
   },
   button: {
     width: '100%',
     height: 50,
-    margin: 5,
+    marginTop: 5,
+    marginBottom: 5,
     justifyContent: 'center'
   }
 });
@@ -93,13 +102,6 @@ export const wrkPlcMngStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  singleView: {
-    margin: 5,
-  },
-  multiView: {
-    margin: 5,
-    flexDirection: 'row',
-  },
   flatList: {
     width: Dimensions.get('window').width,
   },
@@ -120,13 +122,18 @@ export const CommuteMngStyle = StyleSheet.create({
   text: {
     textAlign: 'center',
   },
+  mapViewContainer: {
+    width: Dimensions.get('window').width - 40,
+    height: Dimensions.get('window').width - 40,
+  },
   mapView: {
+    ...StyleSheet.absoluteFillObject,
     width: Dimensions.get('window').width - 40,
     height: Dimensions.get('window').width - 40,
   },
   commuteLBtn: {
     marginTop: 20,
-    marginBottom: 0,
+    marginBottom: 10,
     marginLeft: 20,
     marginRight: 5,
     justifyContent: 'center',
@@ -137,7 +144,7 @@ export const CommuteMngStyle = StyleSheet.create({
   },
   commuteRBtn: {
     marginTop: 20,
-    marginBottom: 0,
+    marginBottom: 10,
     marginLeft: 5,
     marginRight: 20,
     justifyContent: 'center',
@@ -145,5 +152,9 @@ export const CommuteMngStyle = StyleSheet.create({
     backgroundColor: DefaultTheme.colors.surface,
     width: (Dimensions.get('window').width - 50) / 2,
     height: (Dimensions.get('window').width - 50) / 2
+  },
+  initBtn: {
+    top: '0%',
+    left: '85%',
   }
 });

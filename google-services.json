@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "951045899073",
+    "project_id": "biltd-9149b",
+    "storage_bucket": "biltd-9149b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951045899073:android:6ea47695b762d0b23357c0",
+        "android_client_info": {
+          "package_name": "com.biltd.bilcmsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "951045899073-qphjgutu2td8mgf69jqbmmeuhb6a3c0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXuclIzdNgsmPGQkOxID0EtNeCp5k2xfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "951045899073-qphjgutu2td8mgf69jqbmmeuhb6a3c0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

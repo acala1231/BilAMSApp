@@ -13,24 +13,22 @@ import { cmsApi } from '../actions';
 const WrkPlcMng = () => {
     const action = useDispatch();
 
-    // 팝업
-    const [isAdrModal, setAdrModal] = useState(false);
-    const [isAplyModal, setAplyModal] = useState(false);
-
-    // 신규근무지등록관련
-    const [prjNm, setPrjNm] = useState('');
-    const [zipcd, setZipcd] = useState('');
-    const [adr, setAdr] = useState('');
-    const [dtlAdr, setDtlAdr] = useState('');
-    const [query, setQuery] = useState('');
-
-    // 근무지리스트조회관련
-    const data = useSelector(state => state.workPlcList.data); // 조회데이터
+    // state
+    const [isAdrModal, setAdrModal] = useState(false); // 주소검색팝업
+    const [isAplyModal, setAplyModal] = useState(false); // 근무지등록팝업
+    const [prjNm, setPrjNm] = useState(''); // 프로젝트이름
+    const [zipcd, setZipcd] = useState(''); // 우편번호
+    const [adr, setAdr] = useState(''); // 주소
+    const [dtlAdr, setDtlAdr] = useState(''); // 상세주소
+    const [query, setQuery] = useState(''); // 주소검색용변수
+    const [refreshing, setRefreshing] = useState(false); // 리스트 초기화
+    const [list, setList] = useState([]); // 리스트데이터
     const [pageNo, setPageNo] = useState(1); // 리스트페이지번호
     const [maxPageNo, setMaxPageNo] = useState(1); // 리스트페이지번호
-    const [list, setList] = useState([]); // 리스트데이터
-    const [refreshing, setRefreshing] = useState(false); // 리스트 초기화
+    const data = useSelector(state => state.workPlcList.data); // 근무지 목록 조회데이터
 
+
+    // screen function start
 
     // 프로젝트 신규 등록신청 유효성검사
     const validate = () => {
@@ -65,6 +63,7 @@ const WrkPlcMng = () => {
         common.showConfirmMsg(action, '신규 근무지를 등록 신청 하시겠습니까?.', () => callback());
     }
 
+    // 근무지 등록
     const regWrkPlc = (wrkPlcNo) => {
         const callback = () => {
             action(cmsApi.regWrkPlc({ wrkPlcNo }));
@@ -100,6 +99,10 @@ const WrkPlcMng = () => {
         setAdrModal(false);
     }
 
+    // screen function end
+
+
+    // useEffect start
 
     // page mount
     useEffect(() => {
@@ -124,6 +127,8 @@ const WrkPlcMng = () => {
         // data 초기화
         action(cmsApi.getWrkPlcListFail());
     }, [data]);
+
+    // useEffect end
 
 
     return (
@@ -178,7 +183,7 @@ const WrkPlcMng = () => {
                     >
                         <View style={wrkPlcMngStyle.aplyContainer}>
                             <Title>근무지 등록신청</Title>
-                            <View style={wrkPlcMngStyle.singleView}>
+                            <View style={commonStlye.singleView}>
                                 <TextInput
                                     label="프로젝트명"
                                     value={prjNm}
@@ -186,7 +191,7 @@ const WrkPlcMng = () => {
                                     onChangeText={text => setPrjNm(text)}
                                 />
                             </View>
-                            <View style={wrkPlcMngStyle.multiView}>
+                            <View style={commonStlye.multiView}>
                                 <TextInput
                                     style={{ width: '80%' }}
                                     label="우편번호"
@@ -201,14 +206,14 @@ const WrkPlcMng = () => {
                                     />
                                 </View>
                             </View>
-                            <View style={wrkPlcMngStyle.singleView}>
+                            <View style={commonStlye.singleView}>
                                 <TextInput
                                     label="주소"
                                     disabled={true}
                                     value={adr}
                                 />
                             </View>
-                            <View style={wrkPlcMngStyle.singleView}>
+                            <View style={commonStlye.singleView}>
                                 <TextInput
                                     label="상세주소"
                                     value={dtlAdr}
@@ -216,7 +221,7 @@ const WrkPlcMng = () => {
                                     onChangeText={text => setDtlAdr(text)}
                                 />
                             </View>
-                            <View style={wrkPlcMngStyle.singleView}>
+                            <View style={commonStlye.singleView}>
                                 <Button
                                     mode="contained"
                                     onPress={() => validate()}
@@ -239,7 +244,7 @@ const WrkPlcMng = () => {
                                 jsOptions={{ animation: true, hideMapBtn: true }}
                                 onSelected={data => {
                                     setAdr(data.address);
-                                    setQuery(data.query);
+                                    setQuery(data.address);
                                     setZipcd(data.zonecode);
                                     setAdrModal(false);
                                 }}

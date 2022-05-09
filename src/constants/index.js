@@ -1,8 +1,8 @@
 export const CMS_AUTH_TOKEN = 'CMS-AUTH-TOKEN';
 
 // export const HOST_CMS_API = `http://192.168.0.11:8080/api/CMS`;//집
-export const HOST_CMS_API = `http://192.168.22.54:8080/api/CMS`;//pol
-// export const HOST_CMS_API = `http://localhost:8080/api/CMS`;
+// export const HOST_CMS_API = `http://192.168.22.54:8080/api/CMS`;//pol
+export const HOST_CMS_API = `http://172.30.1.22:8080/api/CMS`;//bil
 // export const HOST_CMS_API = `/api/CMS`;
 
 

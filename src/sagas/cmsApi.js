@@ -48,7 +48,7 @@ function* login(action) {
         if (!commJs.validationToken(response.data.status)) return; // 토큰만료확인
 
         if (response.data.status !== 'success') { // 실패
-            throw response.data.message;
+            yield put(common.alertMsgShow(response.data.message));
         } else { // 성공
             // 로그인처리
             yield put(cmsApi.login(response.data.data));
@@ -137,7 +137,6 @@ function* getEmpCmt(action) {
 
 // 출퇴근등록
 function* regEmpCmt(action) {
-    console.log('saga', action);
     yield cmsApiCallWrapper(action, function* (data) {
         yield put(cmsApi.regEmpCmtSucc(data));
         yield put(location.getCurLocation());
