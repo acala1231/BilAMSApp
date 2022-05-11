@@ -1,13 +1,23 @@
-import axios from 'axios';
+import { Platform  } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import _ from 'lodash';
+import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
+import axios from 'axios';
+import _ from 'lodash';
 
 import * as constants from '../constants'
 import { common } from '../actions';
 
 
 export const callCmsApi = async (param) => {
+    // 푸쉬토큰체크
+    const storedPushToken = await getAsyncStore(constants.EXPO_PUSH_TOKEN);
+    if (_.isEmpty(storedPushToken)) {
+        await setAsyncStore(constants.EXPO_PUSH_TOKEN, await registerForPushNotificationsAsync());
+        const subscription = Notifications.addPushTokenListener(registerForPushNotificationsAsync);
+        subscription.remove();
+    }
+
     const config = {
         method: _.isEmpty(param.method) ? 'get' : param.method,
         url: constants.HOST_CMS_API + param.url,
@@ -15,6 +25,7 @@ export const callCmsApi = async (param) => {
         headers: {
             'Content-Type': 'application/json',
             'CMS-AUTH-TOKEN': await getAsyncStore(constants.CMS_AUTH_TOKEN),
+            'EXPO_PUSH_TOKEN': await getAsyncStore(constants.EXPO_PUSH_TOKEN),
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
             'Access-Control-Allow-Headers': 'x-access-token, Origin, X-Requested-With, Content-Type, Accept',
@@ -24,7 +35,6 @@ export const callCmsApi = async (param) => {
     };
 
     // console.log('config', config);
-
     return axios(config);
 }
 
@@ -80,4 +90,35 @@ export const chkPwReg = (empPw) => {
     //  8 ~ 10자 영문, 숫자 조합
     const reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$/;
     return reg.test(empPw);
+}
+
+// get expo-notification push token
+async function registerForPushNotificationsAsync() {
+    let token;
+    if (Device.isDevice) {
+        const { status: existingStatus } = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== 'granted') {
+            const { status } = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+        if (finalStatus !== 'granted') {
+            alert('Failed to get push token for push notification!');
+            return;
+        }
+        token = (await Notifications.getExpoPushTokenAsync()).data;
+    } else {
+        alert('Must use physical device for Push Notifications');
+    }
+
+    if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notifications.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+        });
+    }
+
+    return token;
 }
