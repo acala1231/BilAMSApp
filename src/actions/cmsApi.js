@@ -41,7 +41,7 @@ export const modifyEmpPw = (params) => {
 export const getWrkPlcList = (params) => {
     return {
         type: constants.GET_WRK_PLC_LIST_REQUEST,
-        url: '/work-places/' + params.pageNo,
+        url: '/wrk-plc/' + params.pageNo,
         method: 'get',
     };
 }
@@ -62,7 +62,7 @@ export const getWrkPlcListFail = () => {
 export const aplyWrkPlc = (params) => {
     return {
         type: constants.APLY_WRK_PLC_REQUEST,
-        url: '/work-place-apply',
+        url: '/wrk-plc',
         method: 'post',
         params: params,
     };
@@ -84,7 +84,7 @@ export const aplyWrkPlcFail = () => {
 export const regWrkPlc = (params) => {
     return {
         type: constants.REG_WRK_PLC_REQUEST,
-        url: '/emp-work',
+        url: '/emp/wrk-plc',
         method: 'post',
         params,
     };
@@ -106,7 +106,7 @@ export const regWrkPlcFail = () => {
 export const getEmpCmt = (params) => {
     return {
         type: constants.GET_EMP_CMT_REQUEST,
-        url: '/emp-cmt',
+        url: '/emp/cmt',
         method: 'get',
         params,
     };
@@ -128,7 +128,7 @@ export const getEmpCmtFail = () => {
 export const regEmpCmt = (params) => {
     return {
         type: constants.REG_EMP_CMT_REQUEST,
-        url: '/emp-cmt',
+        url: '/emp/cmt',
         method: 'post',
         params,
     };

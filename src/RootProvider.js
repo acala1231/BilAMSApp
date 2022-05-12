@@ -31,8 +31,6 @@ const RootProvider = () => {
   const store = configureStore();
   store.runSaga(rootSaga);
 
-console.log('DefaultTheme', DefaultTheme);
-
   return (
     <Provider store={store}>
       <PaperProvider theme={theme}>
